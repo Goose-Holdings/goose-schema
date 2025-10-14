@@ -116,7 +116,7 @@
         }
       }
 
-      // Build Table of Contents (unordered list)
+      // Build TOC
       for (const defName in defs) {
         const li = document.createElement('li');
         const link = document.createElement('a');
@@ -171,20 +171,22 @@
 
           const tdRef = document.createElement('td');
           if (prop["$ref"]) {
-            const refPath = prop["$ref"].split('/');
-            const refDef = refPath[refPath.length - 2] || '';
-            const refField = refPath[refPath.length - 1];
-            const refDisplay = refDef && refDef !== 'definitions'
-              ? refDef + ' → ' + refField
-              : refField;
-            const a = document.createElement('a');
-            a.href = 'javascript:void(0)';
-            a.textContent = refDisplay;
-            a.addEventListener('click', (e) => {
-              e.stopPropagation();
-              setTimeout(() => openAndScrollTo(refField), 50);
-            });
-            tdRef.appendChild(a);
+            const ref = prop["$ref"];
+            const match = ref.match(/#\/definitions\/(.+?)(?:\/|$)/);
+            const targetDef = match ? match[1] : null;
+            if (targetDef) {
+              const refDisplay = targetDef + ' → ' + propName;
+              const a = document.createElement('a');
+              a.href = 'javascript:void(0)';
+              a.textContent = refDisplay;
+              a.addEventListener('click', (e) => {
+                e.stopPropagation();
+                setTimeout(() => openAndScrollTo(targetDef), 50);
+              });
+              tdRef.appendChild(a);
+            } else {
+              tdRef.textContent = '';
+            }
           } else {
             tdRef.textContent = '';
           }
