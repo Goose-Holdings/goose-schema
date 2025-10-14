@@ -74,10 +74,14 @@
       border: 1px solid #ccc;
       padding: 0.5em 0.6em;
       text-align: left;
+      vertical-align: top;
     }
     th {
       background: #f0f0f0;
       color: #333;
+    }
+    td {
+      font-size: 0.9em;
     }
     tr:nth-child(even) {
       background: #fcfcfc;
@@ -87,6 +91,13 @@
       color: #666;
       margin: 0.5em 0 0.5em 0;
     }
+    /* Column widths */
+    th:nth-child(1), td:nth-child(1) { width: 15%; }
+    th:nth-child(2), td:nth-child(2) { width: 10%; }
+    th:nth-child(3), td:nth-child(3) { width: 15%; }
+    th:nth-child(4), td:nth-child(4) { width: 30%; }
+    th:nth-child(5), td:nth-child(5) { width: 15%; }
+    th:nth-child(6), td:nth-child(6) { width: 15%; }
   </style>
 </head>
 <body>
@@ -174,7 +185,7 @@
           tr.appendChild(tdDesc);
 
           const tdEnum = document.createElement('td');
-          tdEnum.textContent = (prop.enum || []).join(', ');
+          tdEnum.innerHTML = (prop.enum || []).map(e => `• ${e}`).join('<br>');
           tr.appendChild(tdEnum);
 
           const tdRef = document.createElement('td');
@@ -192,11 +203,7 @@
                 setTimeout(() => openAndScrollTo(targetDef), 50);
               });
               tdRef.appendChild(a);
-            } else {
-              tdRef.textContent = '';
             }
-          } else {
-            tdRef.textContent = '';
           }
           tr.appendChild(tdRef);
 
