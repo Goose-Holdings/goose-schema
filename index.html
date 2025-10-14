@@ -94,12 +94,12 @@
       font-size: 0.8em;
     }
     /* Column widths */
-    th:nth-child(1), td:nth-child(1) { width: 18%; }
-    th:nth-child(2), td:nth-child(2) { width: 10%; }
-    th:nth-child(3), td:nth-child(3) { width: 10%; }
-    th:nth-child(4), td:nth-child(4) { width: 26%; }
-    th:nth-child(5), td:nth-child(5) { width: 18%; }
-    th:nth-child(6), td:nth-child(6) { width: 18%; }
+    th:nth-child(1), td:nth-child(1) { width: 18%; } /* Property */
+    th:nth-child(2), td:nth-child(2) { width: 10%; } /* Type */
+    th:nth-child(3), td:nth-child(3) { width: 10%; } /* Format */
+    th:nth-child(4), td:nth-child(4) { width: 18%; } /* Enum */
+    th:nth-child(5), td:nth-child(5) { width: 26%; } /* Description */
+    th:nth-child(6), td:nth-child(6) { width: 18%; } /* Reference */
   </style>
 </head>
 <body>
@@ -158,7 +158,7 @@
 
         const table = document.createElement('table');
         const headerRow = document.createElement('tr');
-        ['Property', 'Type', 'Format', 'Description', 'Enum', 'Reference'].forEach(h => {
+        ['Property', 'Type', 'Format', 'Enum', 'Description', 'Reference'].forEach(h => {
           const th = document.createElement('th');
           th.textContent = h;
           headerRow.appendChild(th);
@@ -182,13 +182,13 @@
           tdFormat.textContent = prop.format || '';
           tr.appendChild(tdFormat);
 
-          const tdDesc = document.createElement('td');
-          tdDesc.textContent = prop.description || '';
-          tr.appendChild(tdDesc);
-
           const tdEnum = document.createElement('td');
           tdEnum.innerHTML = (prop.enum || []).map(e => `• ${e}`).join('<br>');
           tr.appendChild(tdEnum);
+
+          const tdDesc = document.createElement('td');
+          tdDesc.textContent = prop.description || '';
+          tr.appendChild(tdDesc);
 
           const tdRef = document.createElement('td');
           if (prop["$ref"]) {
