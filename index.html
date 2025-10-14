@@ -6,16 +6,22 @@
   <style>
     body {
       font-family: system-ui, sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
+      background-color: #fafafa;
+      color: #333;
       margin: 0;
       padding: 0;
     }
-    h1, h2, h3 {
-      color: #ffffff;
+    h1 {
+      background-color: #FE5816;
+      color: #fff;
+      margin: 0;
+      padding: 1em;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
     a {
-      color: #80cbc4;
+      color: #FE5816;
       text-decoration: none;
     }
     a:hover {
@@ -24,35 +30,36 @@
     .container {
       max-width: 1000px;
       margin: 0 auto;
-      padding: 1em 1.5em;
+      padding: 1em 1.5em 2em 1.5em;
     }
     .toc {
-      border-bottom: 1px solid #333;
+      border-bottom: 2px solid #FE5816;
       margin-bottom: 1.5em;
       padding-bottom: 0.5em;
     }
     .toc a {
       display: inline-block;
       margin-right: 1em;
-      color: #80cbc4;
-      font-weight: 500;
+      color: #FE5816;
+      font-weight: 600;
     }
     details {
-      background: #1e1e1e;
+      background: #ffffff;
       margin: 1em 0;
       border-radius: 6px;
-      border: 1px solid #333;
+      border: 1px solid #ddd;
       padding: 0.5em 1em;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
     details summary {
       cursor: pointer;
       font-weight: 600;
-      color: #ffcc80;
+      color: #333;
       outline: none;
     }
     details.highlight {
-      border: 1px solid #80cbc4;
-      box-shadow: 0 0 8px #80cbc4;
+      border: 2px solid #FE5816;
+      box-shadow: 0 0 8px rgba(254,88,22,0.5);
       transition: box-shadow 0.3s ease-out;
     }
     table {
@@ -61,27 +68,27 @@
       margin-top: 0.5em;
     }
     th, td {
-      border: 1px solid #333;
-      padding: 0.4em 0.6em;
+      border: 1px solid #ccc;
+      padding: 0.5em 0.6em;
       text-align: left;
     }
     th {
-      background: #2a2a2a;
-      color: #f0f0f0;
+      background: #f0f0f0;
+      color: #333;
     }
     tr:nth-child(even) {
-      background: #181818;
+      background: #fcfcfc;
     }
     .definition-description {
       font-style: italic;
-      color: #b0bec5;
-      margin-bottom: 0.5em;
+      color: #666;
+      margin: 0.5em 0 0.5em 0;
     }
   </style>
 </head>
 <body>
+  <h1>Goose Schema Documentation</h1>
   <div class="container">
-    <h1>Goose Schema Documentation</h1>
     <div class="toc" id="toc"></div>
     <div id="content"></div>
   </div>
@@ -160,7 +167,10 @@
             const a = document.createElement('a');
             a.href = 'javascript:void(0)';
             a.textContent = refLink;
-            a.addEventListener('click', () => openAndScrollTo(refLink));
+            a.addEventListener('click', (e) => {
+              e.stopPropagation();
+              openAndScrollTo(refLink);
+            });
             tdRef.appendChild(a);
           } else {
             tdRef.textContent = '';
