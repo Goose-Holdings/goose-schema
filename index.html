@@ -1,89 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Goose Schema Viewer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>JSON Schema Docs Viewer</title>
   <style>
-    body { margin: 0; font-family: 'Raleway', sans-serif; background: #f9f9f9; }
-    header {
-      background: #FE5816;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5em 1em;
-      font-size: 1.3em;
-      font-weight: 600;
+    body {
+      font-family: system-ui, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
     }
-    header img { height: 32px; margin-right: 10px; }
-    .header-left { display: flex; align-items: center; }
-    button {
-      background: white;
-      color: #FE5816;
-      border: none;
+    h1, h2, h3 {
+      color: #ffffff;
+    }
+    a {
+      color: #80cbc4;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1em 1.5em;
+    }
+    .toc {
+      border-bottom: 1px solid #333;
+      margin-bottom: 1.5em;
+    }
+    .toc a {
+      display: inline-block;
+      margin-right: 1em;
+      color: #80cbc4;
+      font-weight: 500;
+    }
+    details {
+      background: #1e1e1e;
+      margin: 1em 0;
       border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 0.9em;
+      border: 1px solid #333;
+      padding: 0.5em 1em;
+    }
+    details summary {
       cursor: pointer;
-      transition: background 0.2s;
+      font-weight: 600;
+      color: #ffcc80;
+      outline: none;
     }
-    button:hover { background: #ffe3d5; }
-    #viewer {
-      padding: 1em;
-      background: white;
-      margin: 1em;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5em;
     }
-    footer {
-      text-align: center;
-      padding: 1em;
-      color: #777;
-      font-size: 0.9em;
-      border-top: 1px solid #ddd;
-      margin-top: 2em;
+    th, td {
+      border: 1px solid #333;
+      padding: 0.4em 0.6em;
+      text-align: left;
     }
-    summary { cursor: pointer; }
+    th {
+      background: #2a2a2a;
+      color: #f0f0f0;
+    }
+    tr:nth-child(even) {
+      background: #181818;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-left">
-      <img src="assets/Full_Color_Goose.png" alt="Goose Logo" />
-      Goose Schema Viewer
-    </div>
-    <button id="toggleView">Switch to Docs View</button>
-  </header>
-
-  <div id="viewer"></div>
-  <footer>Built by Goose · © 2025</footer>
-
-  <script type="module">
-    import { render, renderDocsMode } from "./assets/jsv-index.min.js";
-
-    let docsMode = false;
-    const viewer = document.getElementById("viewer");
-    const btn = document.getElementById("toggleView");
-    let schema = null;
-
+  <div class="container">
+    <h1>JSON Schema Documentation</h1>
+    <div class="toc" id="toc"></div>
+    <div id="content"></div>
+  </div>
+  <script>
     async function loadSchema() {
-      const response = await fetch("goose-schema.json");
-      schema = await response.json();
-      render(schema, viewer);
-    }
+      const res = await fetch('goose-schema.json');
+      const schema = await res.json();
+      const defs = schema.definitions || {};
+      const toc = document.getElementById('toc');
+      const content = document.getElementById('content');
 
-    btn.addEventListener("click", () => {
-      docsMode = !docsMode;
-      btn.textContent = docsMode ? "Switch to Tree View" : "Switch to Docs View";
-      if (docsMode) {
-        renderDocsMode(schema, viewer);
-      } else {
-        render(schema, viewer);
+      // Create TOC links
+      for (const defName in defs) {
+        const link = document.createElement('a');
+        link.href = '#' + defName;
+        link.textContent = defName;
+        toc.appendChild(link);
       }
-    });
 
+      // Create definition sections
+      for (const defName in defs) {
+        const def = defs[defName];
+        const details = document.createElement('details');
+        details.id = defName;
+        const summary = document.createElement('summary');
+        summary.textContent = defName;
+        details.appendChild(summary);
+
+        const table = document.createElement('table');
+        const headerRow = document.createElement('tr');
+        ['Property', 'Type', 'Description', 'Reference', 'Enum'].forEach(h => {
+          const th = document.createElement('th');
+          th.textContent = h;
+          headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+
+        const props = def.properties || {};
+        for (const propName in props) {
+          const prop = props[propName];
+          const tr = document.createElement('tr');
+
+          const tdProp = document.createElement('td');
+          tdProp.textContent = propName;
+          tr.appendChild(tdProp);
+
+          const tdType = document.createElement('td');
+          tdType.textContent = prop.type || '';
+          tr.appendChild(tdType);
+
+          const tdDesc = document.createElement('td');
+          tdDesc.textContent = prop.description || '';
+          tr.appendChild(tdDesc);
+
+          const tdRef = document.createElement('td');
+          if (prop["$ref"]) {
+            const refLink = prop["$ref"].split('/').pop();
+            const a = document.createElement('a');
+            a.href = '#' + refLink;
+            a.textContent = refLink;
+            tdRef.appendChild(a);
+          } else {
+            tdRef.textContent = '';
+          }
+          tr.appendChild(tdRef);
+
+          const tdEnum = document.createElement('td');
+          tdEnum.textContent = (prop.enum || []).join(', ');
+          tr.appendChild(tdEnum);
+
+          table.appendChild(tr);
+        }
+        details.appendChild(table);
+        content.appendChild(details);
+      }
+    }
     loadSchema();
   </script>
 </body>
