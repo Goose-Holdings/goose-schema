@@ -6,24 +6,30 @@
   <title>Goose Schema Viewer</title>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Raleway', sans-serif;
-      background: #f9f9f9;
-    }
+    body { margin: 0; font-family: 'Raleway', sans-serif; background: #f9f9f9; }
     header {
       background: #FE5816;
       color: white;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       padding: 0.5em 1em;
       font-size: 1.3em;
       font-weight: 600;
     }
-    header img {
-      height: 32px;
-      margin-right: 10px;
+    header img { height: 32px; margin-right: 10px; }
+    .header-left { display: flex; align-items: center; }
+    button {
+      background: white;
+      color: #FE5816;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: background 0.2s;
     }
+    button:hover { background: #ffe3d5; }
     #viewer {
       padding: 1em;
       background: white;
@@ -39,31 +45,44 @@
       border-top: 1px solid #ddd;
       margin-top: 2em;
     }
+    summary { cursor: pointer; }
   </style>
 </head>
 <body>
   <header>
-    <img src="assets/Full_Color_Goose.png" alt="Goose Logo" />
-    Goose Schema Viewer
+    <div class="header-left">
+      <img src="assets/Full_Color_Goose.png" alt="Goose Logo" />
+      Goose Schema Viewer
+    </div>
+    <button id="toggleView">Switch to Docs View</button>
   </header>
 
   <div id="viewer"></div>
-
   <footer>Built by Goose · © 2025</footer>
 
   <script type="module">
-    import { render } from "https://cdn.jsdelivr.net/npm/@datopian/jsv@1.4.0/dist/index.js";
+    import { render, renderDocsMode } from "./assets/jsv-index.min.js";
+
+    let docsMode = false;
+    const viewer = document.getElementById("viewer");
+    const btn = document.getElementById("toggleView");
+    let schema = null;
 
     async function loadSchema() {
-      try {
-        const response = await fetch("goose-schema.json");
-        const schema = await response.json();
-        render(schema, document.getElementById("viewer"));
-      } catch (e) {
-        document.getElementById("viewer").innerHTML =
-          "<p style='color:red'>Failed to load goose-schema.json</p>";
-      }
+      const response = await fetch("goose-schema.json");
+      schema = await response.json();
+      render(schema, viewer);
     }
+
+    btn.addEventListener("click", () => {
+      docsMode = !docsMode;
+      btn.textContent = docsMode ? "Switch to Tree View" : "Switch to Docs View";
+      if (docsMode) {
+        renderDocsMode(schema, viewer);
+      } else {
+        render(schema, viewer);
+      }
+    });
 
     loadSchema();
   </script>

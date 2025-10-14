@@ -1,18 +1,15 @@
 # Goose Schema Viewer
 
-A lightweight, static JSON Schema viewer built with [Datopian JSV](https://github.com/datopian/jsv).
+A self-contained, Goose-branded JSON Schema viewer with Tree and Docs modes.
 
 ## 🚀 Usage
 1. Upload this folder (`schema-viewer/`) to a GitHub repository.
-2. Enable **GitHub Pages** for the repo:
-   - Go to *Settings → Pages*
-   - Choose *main* branch and */ (root)* folder.
+2. Enable **GitHub Pages** in your repo's Settings → Pages → Source: main branch → /(root).
 3. Visit:
    ```
    https://<your-username>.github.io/schema-viewer/
    ```
-4. It will automatically load `goose-schema.json` and display it in the viewer.
+4. The viewer automatically loads `goose-schema.json`.
 
 ---
-
 **Built by Goose · © 2025**
