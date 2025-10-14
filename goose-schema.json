@@ -163,7 +163,8 @@
         "pet owner id": {
           "$ref": "#/definitions/pet-owner-changes/properties/pet owner id"
         }
-      }
+      },
+      "description": "Description for collection-changes definition."
     },
     "invoice-changes": {
       "type": "object",
@@ -320,7 +321,8 @@
         "pet owner id": {
           "$ref": "#/definitions/pet-owner-changes/properties/pet owner id"
         }
-      }
+      },
+      "description": "Description for invoice-changes definition."
     },
     "invoice-item-changes": {
       "type": "object",
@@ -450,7 +452,8 @@
         "item discount percent": {
           "type": "number"
         }
-      }
+      },
+      "description": "Description for invoice-item-changes definition."
     },
     "invoice-item-pet-changes": {
       "type": "object",
@@ -506,7 +509,8 @@
         "pet id": {
           "$ref": "#/definitions/pet-changes/properties/pet id"
         }
-      }
+      },
+      "description": "Description for invoice-item-pet-changes definition."
     },
     "pet-changes": {
       "type": "object",
@@ -633,7 +637,8 @@
           "type": "string",
           "format": "cuid"
         }
-      }
+      },
+      "description": "Description for pet-changes definition."
     },
     "pet-owner-changes": {
       "type": "object",
@@ -699,7 +704,8 @@
         "pet owner alert": {
           "type": "string"
         }
-      }
+      },
+      "description": "Description for pet-owner-changes definition."
     }
   }
 }
