@@ -29,53 +29,67 @@
       "properties": {
         "batch": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "location": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "location id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "location timezone": {
           "type": "string",
-          "format": "IANA timezone"
+          "format": "IANA timezone",
+          "description": ""
         },
         "account id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "booking reference": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "booking id": {
-          "$ref": "#/definitions/invoice-changes/properties/booking id"
+          "$ref": "#/definitions/invoice-changes/properties/booking id",
+          "description": ""
         },
         "booking confirmed at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "invoice reference": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "invoice id": {
-          "$ref": "#/definitions/invoice-changes/properties/invoice id"
+          "$ref": "#/definitions/invoice-changes/properties/invoice id",
+          "description": ""
         },
         "invoice created at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "payment id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "payment created at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "payment currency": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "payment method": {
           "type": "string",
@@ -86,7 +100,8 @@
             "Other",
             "Wallet",
             "Credit"
-          ]
+          ],
+          "description": ""
         },
         "payment refund method": {
           "type": "string",
@@ -96,72 +111,89 @@
             "Card",
             "Cash",
             "Other"
-          ]
+          ],
+          "description": ""
         },
         "transaction id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "transaction created at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "transaction updated at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "transaction status": {
           "type": "string",
           "enum": [
             "Succeeded",
             "Failed"
-          ]
+          ],
+          "description": ""
         },
         "transaction type": {
           "type": "string",
           "enum": [
             "Charge",
             "Refund"
-          ]
+          ],
+          "description": ""
         },
         "transaction subtotal": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "transaction tax": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "transaction total": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "transaction tip": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "transaction channel": {
           "type": "string",
           "enum": [
             "Front Desk",
             "Online"
-          ]
+          ],
+          "description": ""
         },
         "transaction terminal": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "transaction note": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "transaction source id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "transaction destination id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "payment refusal reason": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet owner id": {
-          "$ref": "#/definitions/pet-owner-changes/properties/pet owner id"
+          "$ref": "#/definitions/pet-owner-changes/properties/pet owner id",
+          "description": ""
         }
       },
       "description": "Description for collection-changes definition."
@@ -171,37 +203,46 @@
       "properties": {
         "batch": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "location": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "location id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "location timezone": {
           "type": "string",
-          "format": "IANA timezone"
+          "format": "IANA timezone",
+          "description": ""
         },
         "account id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "booking reference": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "booking id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "booking confirmed at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "booking updated at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "booking status": {
           "type": "string",
@@ -210,21 +251,25 @@
             "Canceled",
             "Partially Canceled",
             "Failed"
-          ]
+          ],
+          "description": ""
         },
         "booking service name": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "booking service id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "booking channel": {
           "type": "string",
           "enum": [
             "Front Desk",
             "Online"
-          ]
+          ],
+          "description": ""
         },
         "order device": {
           "type": "string",
@@ -232,22 +277,27 @@
             "Desktop",
             "Mobile",
             "Tablet"
-          ]
+          ],
+          "description": ""
         },
         "invoice reference": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "invoice id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "invoice created at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "invoice updated at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "invoice status": {
           "type": "string",
@@ -256,7 +306,8 @@
             "Canceled",
             "Partially Canceled",
             "Failed"
-          ]
+          ],
+          "description": ""
         },
         "invoice sub status": {
           "type": "string",
@@ -268,7 +319,8 @@
             "In Progress",
             "Completed",
             "Purchased"
-          ]
+          ],
+          "description": ""
         },
         "invoice canceled by": {
           "type": "string",
@@ -276,50 +328,63 @@
             "Pet Owner",
             "Front Desk",
             "System"
-          ]
+          ],
+          "description": ""
         },
         "invoice category": {
           "type": "string",
           "enum": [
             "Visit",
             "Purchase"
-          ]
+          ],
+          "description": ""
         },
         "invoice service name": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "invoice service id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "invoice start": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "invoice planned arrival time": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "invoice end": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "invoice planned departure time": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "invoice total": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "invoice net paid": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "invoice refunded": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "invoice amount due": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "pet owner id": {
-          "$ref": "#/definitions/pet-owner-changes/properties/pet owner id"
+          "$ref": "#/definitions/pet-owner-changes/properties/pet owner id",
+          "description": ""
         }
       },
       "description": "Description for invoice-changes definition."
@@ -329,43 +394,54 @@
       "properties": {
         "batch": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "location": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "location id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "location timezone": {
           "type": "string",
-          "format": "IANA timezone"
+          "format": "IANA timezone",
+          "description": ""
         },
         "account id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "invoice reference": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "invoice id": {
-          "$ref": "#/definitions/invoice-changes/properties/invoice id"
+          "$ref": "#/definitions/invoice-changes/properties/invoice id",
+          "description": ""
         },
         "item id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "item parent id": {
-          "$ref": "#/definitions/invoice-item-changes/properties/item id"
+          "$ref": "#/definitions/invoice-item-changes/properties/item id",
+          "description": ""
         },
         "item created at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "item updated at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "item status": {
           "type": "string",
@@ -373,7 +449,8 @@
             "Inactive",
             "Deleted",
             "Active"
-          ]
+          ],
+          "description": ""
         },
         "item type": {
           "type": "string",
@@ -384,7 +461,8 @@
             "Membership",
             "Discount",
             "Wallet"
-          ]
+          ],
+          "description": ""
         },
         "item subtype": {
           "type": "string",
@@ -395,7 +473,8 @@
             "Credit",
             "Unlimited Benefit",
             "Limited Benefit"
-          ]
+          ],
+          "description": ""
         },
         "item offer type": {
           "type": "string",
@@ -404,53 +483,68 @@
             "Room Upgrade",
             "Pet Perk",
             "Package"
-          ]
+          ],
+          "description": ""
         },
         "item summary": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "item description": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "item pricing strategy": {
           "type": "string",
           "enum": [
             "Daily",
             "Nightly"
-          ]
+          ],
+          "description": ""
         },
         "item quantity": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item rate": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item original rate": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item price": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item pre discount subtotal": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item total discount": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item subtotal": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item tax amount": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item total": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item tax percent": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "item discount percent": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         }
       },
       "description": "Description for invoice-item-changes definition."
@@ -460,30 +554,37 @@
       "properties": {
         "batch": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "location": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "location id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "location timezone": {
           "type": "string",
-          "format": "IANA timezone"
+          "format": "IANA timezone",
+          "description": ""
         },
         "account id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "invoice item pet created at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "invoice item pet updated at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "invoice item pet status": {
           "type": "string",
@@ -491,23 +592,29 @@
             "Inactive",
             "Deleted",
             "Active"
-          ]
+          ],
+          "description": ""
         },
         "booking id": {
-          "$ref": "#/definitions/invoice-changes/properties/booking id"
+          "$ref": "#/definitions/invoice-changes/properties/booking id",
+          "description": ""
         },
         "invoice reference": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "invoice id": {
-          "$ref": "#/definitions/invoice-changes/properties/invoice id"
+          "$ref": "#/definitions/invoice-changes/properties/invoice id",
+          "description": ""
         },
         "invoice item id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "pet id": {
-          "$ref": "#/definitions/pet-changes/properties/pet id"
+          "$ref": "#/definitions/pet-changes/properties/pet id",
+          "description": ""
         }
       },
       "description": "Description for invoice-item-pet-changes definition."
@@ -517,38 +624,47 @@
       "properties": {
         "batch": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "location": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "location id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "location timezone": {
           "type": "string",
-          "format": "IANA timezone"
+          "format": "IANA timezone",
+          "description": ""
         },
         "account id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "pet created location id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "pet id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "pet created at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "pet updated at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "pet status": {
           "type": "string",
@@ -556,33 +672,40 @@
             "Inactive",
             "Deleted",
             "Active"
-          ]
+          ],
+          "description": ""
         },
         "pet name": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet weight": {
-          "type": "number"
+          "type": "number",
+          "description": ""
         },
         "pet color": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet sex": {
           "type": "string",
           "enum": [
             "Male",
             "Female"
-          ]
+          ],
+          "description": ""
         },
         "pet altered": {
           "type": "string",
           "enum": [
             "Altered",
             "Not Altered"
-          ]
+          ],
+          "description": ""
         },
         "pet alert": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet temper test results": {
           "type": "string",
@@ -590,52 +713,66 @@
             "Passed",
             "Failed",
             "Scheduled"
-          ]
+          ],
+          "description": ""
         },
         "pet temper test date": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "pet temper test notes": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet date of birth": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "pet date of death": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "pet death recorded date": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "pet death notes": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet vet name": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet vet phone": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet owner id": {
-          "$ref": "#/definitions/pet-owner-changes/properties/pet owner id"
+          "$ref": "#/definitions/pet-owner-changes/properties/pet owner id",
+          "description": ""
         },
         "pet species": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet species id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "pet breed": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet breed id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         }
       },
       "description": "Description for pet-changes definition."
@@ -645,38 +782,47 @@
       "properties": {
         "batch": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": ""
         },
         "location": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "location id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "location timezone": {
           "type": "string",
-          "format": "IANA timezone"
+          "format": "IANA timezone",
+          "description": ""
         },
         "account id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "pet owner created location id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "pet owner id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "description": ""
         },
         "pet owner created at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "pet owner updated at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": ""
         },
         "pet owner status": {
           "type": "string",
@@ -684,25 +830,32 @@
             "Inactive",
             "Deleted",
             "Active"
-          ]
+          ],
+          "description": ""
         },
         "pet owner email": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet owner phone": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet owner first name": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet owner last name": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet owner address": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         },
         "pet owner alert": {
-          "type": "string"
+          "type": "string",
+          "description": ""
         }
       },
       "description": "Description for pet-owner-changes definition."
