@@ -14,6 +14,7 @@
       --grey: #CBCBCB;
       --eggplant: #302B32;
       --text: #E2E2E2;
+      --panel: rgba(28, 30, 33, 0.85);
     }
 
     body {
@@ -28,49 +29,39 @@
       padding: 0;
       line-height: 1.6;
       min-height: 100vh;
-    }
-
-    /* Layout */
-    .container {
       display: flex;
-      gap: 2em;
-      align-items: flex-start;
-      padding: 2em 3em;
-      margin: 0;
-      max-width: none;
     }
 
-    /* Sidebar (fixed left) */
+    /* Sidebar */
     .toc {
       position: fixed;
-      top: 2em;
-      left: 2em;
+      top: 0;
+      left: 0;
       width: 240px;
-      background: rgba(25, 28, 31, 0.7);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 14px;
-      padding: 1.2em 1.6em;
-      box-shadow: 0 0 24px rgba(0,0,0,0.55);
-      backdrop-filter: blur(14px);
-      height: calc(100vh - 4em);
-      overflow-y: auto;
+      height: 100vh;
+      background: var(--panel);
+      border-right: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 2px 0 8px rgba(0,0,0,0.4);
+      padding: 2em 1.4em;
+      display: flex;
+      flex-direction: column;
     }
 
     .brand {
       font-family: 'JetBrains Mono', monospace;
       font-weight: 600;
-      font-size: 1.05em;
+      font-size: 1em;
       text-transform: uppercase;
       color: var(--orange);
-      letter-spacing: 0.08em;
-      margin-bottom: 1em;
-      text-shadow: 0 0 6px rgba(244,104,17,0.35);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.5em;
+      text-shadow: 0 0 4px rgba(244,104,17,0.3);
     }
 
     .toc h2 {
       color: var(--ochre);
-      font-size: 1em;
-      margin-bottom: 0.4em;
+      font-size: 0.95em;
+      margin-bottom: 0.6em;
       font-weight: 500;
       letter-spacing: 0.03em;
     }
@@ -79,47 +70,49 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      border-left: 1px solid rgba(255,255,255,0.06);
+      flex: 1;
+      overflow-y: auto;
     }
 
     .toc li {
-      margin: 0.5em 0 0.5em 0.8em;
+      margin: 0.45em 0;
     }
 
     .toc a {
       color: var(--grey);
-      font-size: 0.95em;
+      font-size: 0.9em;
       font-weight: 500;
       opacity: 0.8;
       transition: color 0.25s ease, opacity 0.25s ease;
     }
+
     .toc a:hover {
       opacity: 1;
       color: var(--orange);
-      text-shadow: 0 0 8px rgba(244,104,17,0.4);
     }
 
-    /* Main content area */
+    /* Content */
     #content {
       flex: 1;
-      margin-left: 300px; /* leaves room for sidebar */
+      margin-left: 260px;
+      padding: 2em 3em 3em 3em;
       max-width: 1800px;
     }
 
     details {
-      background: rgba(35, 38, 42, 0.8);
+      background: rgba(40, 43, 47, 0.9);
       border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 14px;
-      padding: 1.2em 1.5em;
+      border-radius: 6px;
+      padding: 1em 1.2em;
       margin: 1.2em 0;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 8px rgba(0,0,0,0.4);
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     details[open] {
       border-color: var(--orange);
-      box-shadow: 0 0 25px rgba(244,104,17,0.25);
+      box-shadow: 0 0 15px rgba(244,104,17,0.15);
     }
 
     summary {
@@ -144,34 +137,34 @@
       border-spacing: 0;
       margin-top: 0.5em;
       overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+      border-radius: 4px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     th, td {
-      padding: 0.75em 0.9em;
+      padding: 0.7em 0.9em;
       text-align: left;
       font-size: 0.85em;
       vertical-align: top;
     }
 
     th {
-      background: rgba(244,104,17,0.1);
+      background: rgba(244,104,17,0.08);
       color: var(--ochre);
       font-weight: 600;
       text-transform: uppercase;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       letter-spacing: 0.03em;
     }
 
     td {
-      background: rgba(35,37,40,0.85);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(45,47,50,0.85);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
       color: var(--grey);
     }
 
     tr:nth-child(even) td {
-      background: rgba(30,32,35,0.9);
+      background: rgba(38,40,43,0.9);
     }
 
     tr:last-child td {
@@ -179,22 +172,22 @@
     }
 
     .highlight {
-      border: 2px solid var(--orange);
-      box-shadow: 0 0 18px rgba(244,104,17,0.4);
+      border: 1px solid var(--orange);
+      box-shadow: 0 0 10px rgba(244,104,17,0.25);
     }
 
     td span.enum {
       background: rgba(209,143,54,0.2);
       color: var(--yellow);
-      padding: 3px 8px;
-      border-radius: 6px;
+      padding: 2px 6px;
+      border-radius: 4px;
       margin: 2px;
       display: inline-block;
       font-size: 0.8em;
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Styled ref hyperlinks */
+    /* Link styling inside tables */
     table a {
       color: var(--orange);
       text-decoration: none;
@@ -203,7 +196,7 @@
     }
     table a:hover {
       color: var(--yellow);
-      text-shadow: 0 0 6px rgba(244,104,17,0.4);
+      text-shadow: 0 0 4px rgba(244,104,17,0.3);
     }
     table a:visited {
       color: var(--orange);
@@ -211,14 +204,13 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="toc">
-      <div class="brand">Goose Schema</div>
-      <h2>Definitions</h2>
-      <ul id="toc"></ul>
-    </div>
-    <div id="content"></div>
+  <div class="toc">
+    <div class="brand">Goose Schema</div>
+    <h2>Definitions</h2>
+    <ul id="toc"></ul>
   </div>
+
+  <div id="content"></div>
 
   <script>
     async function loadSchema() {
