@@ -30,69 +30,92 @@
         "batch": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Date of the data included in the batch.",
+          "$comment": "Batches are processed after the day ends at midnight, in the location\u2019s local timezone. The first processed batch includes all historical data.",
+          "examples": [
+            "2025-01-01"
+          ]
         },
         "location": {
           "type": "string",
-          "description": ""
+          "description": "Location identifier.",
+          "$comment": "A human-readable, unique id for the location, using kebab case . This value is used externally, such as on booking websites. In rare cases it may change if there is business re-branding.",
+          "examples": [
+            "paws-pet-hotel-lincoln-park"
+          ]
         },
         "location id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Location identifier (system).",
+          "examples": [
+            "cmgs508fd000904l4e5a2g73i"
+          ]
         },
         "location timezone": {
           "type": "string",
           "format": "IANA timezone",
-          "description": ""
+          "description": "Local timezone of the location.",
+          "$comment": "Location's local timezone which can be used to convert UTC date-time properties.",
+          "examples": [
+            "America/Chicago",
+            "America/New_York"
+          ]
         },
         "account id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Account identifier (system).",
+          "$comment": "An account is the hierarchical parent of a location. In rare cases, the location-to-account relationship may change, such as when business ownership transfers.",
+          "examples": [
+            "cmgs53rww000a04l4escye9nc"
+          ]
         },
         "booking reference": {
-          "type": "string",
-          "description": ""
+          "$ref": "invoice-changes.booking reference"
         },
         "booking id": {
-          "$ref": "#/definitions/invoice-changes/properties/booking id",
-          "description": ""
+          "$ref": "invoice-changes.booking id"
         },
         "booking confirmed at": {
-          "type": "string",
-          "format": "date-time",
-          "description": ""
+          "$ref": "invoice-changes.booking confirmed at"
         },
         "invoice reference": {
-          "type": "string",
-          "description": ""
+          "$ref": "invoice-changes.invoice reference"
         },
         "invoice id": {
-          "$ref": "#/definitions/invoice-changes/properties/invoice id",
-          "description": ""
+          "$ref": "invoice-changes.invoice id"
         },
         "invoice created at": {
-          "type": "string",
-          "format": "date-time",
-          "description": ""
+          "$ref": "invoice-changes.invoice created at"
         },
         "payment id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Payment identifier (system).",
+          "examples": [
+            "cmgsocmodrf4w5dpddrhmpg1"
+          ]
         },
         "payment created at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the payment was created.",
+          "examples": [
+            "2025-08-26 17:29:08.711"
+          ]
         },
         "payment currency": {
           "type": "string",
-          "description": ""
+          "description": "Currency of the payment.",
+          "examples": [
+            "USD"
+          ]
         },
         "payment method": {
           "type": "string",
+          "description": "Method used to perform a charge transaction.",
+          "$comment": "Payment method of a refund will be populated with the original method used for the charge.",
           "enum": [
             "Card - Card Not Present",
             "Card - Card Present",
@@ -101,10 +124,13 @@
             "Wallet",
             "Credit"
           ],
-          "description": ""
+          "examples": [
+            "Card - Card Not Present"
+          ]
         },
         "payment refund method": {
           "type": "string",
+          "description": "Method used to perform a refund transaction.",
           "enum": [
             "Wallet",
             "Credit",
@@ -112,91 +138,144 @@
             "Cash",
             "Other"
           ],
-          "description": ""
+          "examples": [
+            "Wallet"
+          ]
         },
         "transaction id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Transaction identifier (system).",
+          "$comment": "A payment will have at least one charge transaction. If a payment pays two invoices then it will have two charge transactions. If a charge transaction is refunded then it will have a refund transaction. Refunds can be completed in partial amounts.",
+          "examples": [
+            "cmgstpqjul7qazuhc2nrhavo"
+          ]
         },
         "transaction created at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the transaction was created.",
+          "examples": [
+            "2025-08-26 17:29:08.711"
+          ]
         },
         "transaction updated at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the transaction was updated.",
+          "examples": [
+            "2025-09-16 5:19:34.012"
+          ]
         },
         "transaction status": {
           "type": "string",
+          "description": "Completion status of the transaction.",
           "enum": [
             "Succeeded",
             "Failed"
           ],
-          "description": ""
+          "examples": [
+            "Active"
+          ]
         },
         "transaction type": {
           "type": "string",
+          "description": "Type of transaction.",
           "enum": [
             "Charge",
             "Refund"
           ],
-          "description": ""
+          "examples": [
+            "Charge"
+          ]
         },
         "transaction subtotal": {
           "type": "number",
-          "description": ""
+          "description": "Subtotal amount of the transaction.",
+          "examples": [
+            "12.34"
+          ]
         },
         "transaction tax": {
           "type": "number",
-          "description": ""
+          "description": "Tax amount of the transaction.",
+          "examples": [
+            "1.23"
+          ]
         },
         "transaction total": {
           "type": "number",
-          "description": ""
+          "description": "Total amount of the transaction.",
+          "$comment": "Subtotal + tax. Exclusive of tip.",
+          "examples": [
+            "13.57"
+          ]
         },
         "transaction tip": {
           "type": "number",
-          "description": ""
+          "description": "Tip amount of the transaction.",
+          "$comment": "Tip amounts can be realocated after transaction creation.",
+          "examples": [
+            "2.12"
+          ]
         },
         "transaction channel": {
           "type": "string",
+          "description": "Channel where the transaction was created.",
           "enum": [
             "Front Desk",
             "Online"
           ],
-          "description": ""
+          "examples": [
+            "Front Desk"
+          ]
         },
         "transaction terminal": {
           "type": "string",
-          "description": ""
+          "description": "Payment terminal used to perform the transaction.",
+          "$comment": "Will be populated for a card present charge.",
+          "examples": [
+            "AMS1-000168456782345"
+          ]
         },
         "transaction note": {
           "type": "string",
-          "description": ""
+          "description": "Location provided description for the transaction.",
+          "examples": [
+            "Paid with check #1072",
+            "Pet checked out early."
+          ]
         },
         "transaction source id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Identifier (system) of the wallet or credit that the transaction was charged from.",
+          "$comment": "Will be populated when payment method is wallet or credit.",
+          "examples": [
+            "cmgsp0nk1kbu9sihosj7b52f"
+          ]
         },
         "transaction destination id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Identifier (system) of the wallet or credit that the transaction was redunded to.",
+          "$comment": "Will be populated when payment refund method is wallet or credit.",
+          "examples": [
+            "cmgs7jvmjiityxz78hg57ja3"
+          ]
         },
         "payment refusal reason": {
           "type": "string",
-          "description": ""
+          "description": "Reason for payment refusal by the card processor.",
+          "examples": [
+            "Insufficient funds"
+          ]
         },
         "pet owner id": {
-          "$ref": "#/definitions/pet-owner-changes/properties/pet owner id",
-          "description": ""
+          "$ref": "pet-owner-changes.pet owner id"
         }
       },
-      "description": "Description for collection-changes definition."
+      "description": "Auto-generated from CSV documentation."
     },
     "invoice-changes": {
       "type": "object",
@@ -204,114 +283,187 @@
         "batch": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Date of the data included in this batch.",
+          "$comment": "Batches are processed after the day ends at midnight, in the location\u2019s local timezone. The first processed batch includes all historical data.",
+          "examples": [
+            "2025-01-01"
+          ]
         },
         "location": {
           "type": "string",
-          "description": ""
+          "description": "Location identifier.",
+          "$comment": "A human-readable, unique id for the location, using kebab case . This value is used externally, such as on booking websites. In rare cases it may change if there is business re-branding.",
+          "examples": [
+            "paws-pet-hotel-lincoln-park"
+          ]
         },
         "location id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Location identifier (system).",
+          "examples": [
+            "cmgs508fd000904l4e5a2g73i"
+          ]
         },
         "location timezone": {
           "type": "string",
           "format": "IANA timezone",
-          "description": ""
+          "description": "Local timezone of the location.",
+          "$comment": "Location's local timezone which can be used to convert UTC date-time properties.",
+          "examples": [
+            "America/Chicago",
+            "America/New_York"
+          ]
         },
         "account id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Account identifier (system).",
+          "$comment": "An account is the hierarchical parent of a location. In rare cases, the location-to-account relationship may change, such as when business ownership transfers.",
+          "examples": [
+            "cmgs53rww000a04l4escye9nc"
+          ]
         },
         "booking reference": {
           "type": "string",
-          "description": ""
+          "description": "Human readable reference for the booking.",
+          "$comment": "Used in consumer-facing interfaces.",
+          "examples": [
+            "1402032712"
+          ]
         },
         "booking id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Booking identifier (system).",
+          "examples": [
+            "cmgs5fn6e000004l8dvhqezig"
+          ]
         },
         "booking confirmed at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the booking was confirmed.",
+          "examples": [
+            "2025-08-26 17:29:08.711"
+          ]
         },
         "booking updated at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the booking was last updated.",
+          "$comment": "A booking will be updated when the status of one of its invoices changes.",
+          "examples": [
+            "2025-09-16 5:19:34.102"
+          ]
         },
         "booking status": {
           "type": "string",
+          "description": "Status of the booking.",
+          "$comment": "Partially canceled is when at least one Invoice in the booking is not canceled. When all of the booking's invoices are canceled then the booking will be canceled.",
           "enum": [
             "Confirmed",
             "Canceled",
             "Partially Canceled",
             "Failed"
           ],
-          "description": ""
+          "examples": [
+            "Confirmed"
+          ]
         },
         "booking service name": {
           "type": "string",
-          "description": ""
+          "description": "Service name of the booking.",
+          "$comment": "Location configurable name for of one of Goose's supported services. The booking service name can differ from the invoices contained within the booking.",
+          "examples": [
+            "Boarding"
+          ]
         },
         "booking service id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Service identifier (system) of the booking.",
+          "$comment": "Unique to each Location.",
+          "examples": [
+            "cmgswuwoyu1ksg766t8dtiok"
+          ]
         },
         "booking channel": {
           "type": "string",
+          "description": "Channel where the booking was confirmed.",
           "enum": [
             "Front Desk",
             "Online"
           ],
-          "description": ""
+          "examples": [
+            "Front Desk"
+          ]
         },
         "order device": {
           "type": "string",
+          "description": "Type of device used to confirm the booking.",
           "enum": [
             "Desktop",
             "Mobile",
             "Tablet"
           ],
-          "description": ""
+          "examples": [
+            "Desktop"
+          ]
         },
         "invoice reference": {
           "type": "string",
-          "description": ""
+          "description": "Human readable reference for the invoice.",
+          "$comment": "Used in consumer-facing interfaces.",
+          "examples": [
+            "1302982192"
+          ]
         },
         "invoice id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Invoice identifier (system).",
+          "examples": [
+            "cmgsfj9ja000004l74pag5783"
+          ]
         },
         "invoice created at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the invoice was created.",
+          "$comment": "Invoices created at the time of booking will have a created at near to the booking confirmed at (within milliseconds). Invoices can be added to a booking after its confirmation.",
+          "examples": [
+            "2025-08-26 17:29:08.711"
+          ]
         },
         "invoice updated at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the invoice was updated.",
+          "examples": [
+            "2025-09-16 5:19:34"
+          ]
         },
         "invoice status": {
           "type": "string",
+          "description": "Status of the invoice.",
           "enum": [
             "Confirmed",
             "Canceled",
             "Partially Canceled",
             "Failed"
           ],
-          "description": ""
+          "examples": [
+            "Confirmed"
+          ]
         },
         "invoice sub status": {
           "type": "string",
+          "description": "Sub status of the invoice used to represent its workflow following booking confirmation.",
+          "$comment": "Requested, scheduled and delinced sub statuses are present in services that use scheduling (grooming). Booked sub status is the non-canceled status used for services that do not use scheduling (boarding, daycare and evaluation). In progress and completed sub statuses represent a visit's completion status. Purchased sub status is used for purchase category invoices. Canceled can apply to visit and purchase category invoices.",
           "enum": [
+            "Requested",
+            "Pending Scheduled",
             "Scheduled",
             "Declined",
             "Booked",
@@ -320,74 +472,122 @@
             "Completed",
             "Purchased"
           ],
-          "description": ""
+          "examples": [
+            "Completed"
+          ]
         },
         "invoice canceled by": {
           "type": "string",
+          "description": "Channel which canceled the Invoice.",
           "enum": [
             "Pet Owner",
             "Front Desk",
             "System"
           ],
-          "description": ""
+          "examples": [
+            "Pet Owner"
+          ]
         },
         "invoice category": {
           "type": "string",
+          "description": "Category of the invoice",
+          "$comment": "Visit is a service where the pet arrives and departs. Purchase is for a digital service.",
           "enum": [
             "Visit",
             "Purchase"
           ],
-          "description": ""
+          "examples": [
+            "Visit"
+          ]
         },
         "invoice service name": {
           "type": "string",
-          "description": ""
+          "description": "Service name of the invoice.",
+          "$comment": "Location configurable name for of one of Goose's supported services. The invoice service name can differ from the service name of the booking it is contained wihtin.",
+          "examples": [
+            "Grooming"
+          ]
         },
         "invoice service id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Service identifier (system) of the invoice.",
+          "$comment": "Unique to each Location.",
+          "examples": [
+            "cmgsppx7bri2zm1qqwk9raqd"
+          ]
         },
         "invoice start": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Scheduled arrival date of the invoice.",
+          "$comment": "Will be present for Visit Invoices.",
+          "examples": [
+            "2024-05-02"
+          ]
         },
         "invoice planned arrival time": {
           "type": "string",
-          "description": ""
+          "description": "Scheduled arrival time of the invoice.",
+          "$comment": "Optionally present for Visit Invocies depending on whether it was gathered by the Location.",
+          "examples": [
+            "10:00:00"
+          ]
         },
         "invoice end": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Scheduled departure date of the invoice.",
+          "$comment": "Will be present for Visit Invoices.",
+          "examples": [
+            "2024-05-05"
+          ]
         },
         "invoice planned departure time": {
           "type": "string",
-          "description": ""
+          "description": "Scheduled departure time of the invoice.",
+          "$comment": "Optionally present for Visit Invocies depending on whether it was gathered by the Location.",
+          "examples": [
+            "18:00:00"
+          ]
         },
         "invoice total": {
           "type": "number",
-          "description": ""
+          "description": "Total amount of the invoice.",
+          "$comment": "Aggregation of all of the invoice's item total amounts.",
+          "examples": [
+            "200.10"
+          ]
         },
         "invoice net paid": {
           "type": "number",
-          "description": ""
+          "description": "Total amount collected for the invoice net of refunds.",
+          "$comment": "Sum of charge and refund transactions for the invoice.",
+          "examples": [
+            "200.10"
+          ]
         },
         "invoice refunded": {
           "type": "number",
-          "description": ""
+          "description": "Total amount refunded for the invoice.",
+          "$comment": "Sum of refund transactions for the invoice.",
+          "examples": [
+            "20"
+          ]
         },
         "invoice amount due": {
           "type": "number",
-          "description": ""
+          "description": "Amount remaining to be collected for the invoice.",
+          "$comment": "Invoice total less invoice net paid.",
+          "examples": [
+            "0"
+          ]
         },
         "pet owner id": {
-          "$ref": "#/definitions/pet-owner-changes/properties/pet owner id",
-          "description": ""
+          "$ref": "pet-owner-changes.pet owner id"
         }
       },
-      "description": "Description for invoice-changes definition."
+      "description": "Auto-generated from CSV documentation."
     },
     "invoice-item-changes": {
       "type": "object",
@@ -395,65 +595,99 @@
         "batch": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Date of the data included in this batch.",
+          "$comment": "Batches are processed after the day ends at midnight, in the location\u2019s local timezone. The first processed batch includes all historical data.",
+          "examples": [
+            "2025-01-01"
+          ]
         },
         "location": {
           "type": "string",
-          "description": ""
+          "description": "Location identifier.",
+          "$comment": "A human-readable, unique id for the location, using kebab case . This value is used externally, such as on booking websites. In rare cases it may change if there is business re-branding.",
+          "examples": [
+            "paws-pet-hotel-lincoln-park"
+          ]
         },
         "location id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Location identifier (system).",
+          "examples": [
+            "cmgs508fd000904l4e5a2g73i"
+          ]
         },
         "location timezone": {
           "type": "string",
           "format": "IANA timezone",
-          "description": ""
+          "description": "Local timezone of the location.",
+          "$comment": "Location's local timezone which can be used to convert UTC date-time properties.",
+          "examples": [
+            "America/Chicago",
+            "America/New_York"
+          ]
         },
         "account id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Account identifier (system).",
+          "$comment": "An account is the hierarchical parent of a location. In rare cases, the location-to-account relationship may change, such as when business ownership transfers.",
+          "examples": [
+            "cmgs53rww000a04l4escye9nc"
+          ]
         },
         "invoice reference": {
-          "type": "string",
-          "description": ""
+          "$ref": "invoice-changes.invoice reference"
         },
         "invoice id": {
-          "$ref": "#/definitions/invoice-changes/properties/invoice id",
-          "description": ""
+          "$ref": "invoice-changes.invoice id"
         },
         "item id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Item identifier (system).",
+          "examples": [
+            "cmgse6jwcu4n193kgspzpghb"
+          ]
         },
         "item parent id": {
-          "$ref": "#/definitions/invoice-item-changes/properties/item id",
-          "description": ""
+          "description": "Item parent identifier (system).",
+          "$comment": "Exists in a discounting situation, will contain the item id that this item was used to discount.",
+          "examples": [
+            "cmgs5f2b1g376hsjuowgrdxk"
+          ]
         },
         "item created at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the item was created.",
+          "examples": [
+            "2025-08-26 17:29:08.711"
+          ]
         },
         "item updated at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the item was updated.",
+          "examples": [
+            "2025-09-16 5:19:34.123"
+          ]
         },
         "item status": {
           "type": "string",
+          "description": "Active status of the item.",
           "enum": [
-            "Inactive",
+            "Active",
             "Deleted",
-            "Active"
+            "Inactive"
           ],
-          "description": ""
+          "examples": [
+            "Active"
+          ]
         },
         "item type": {
           "type": "string",
+          "description": "Type of item in the invoice.",
           "enum": [
             "Offer",
             "Credit",
@@ -462,92 +696,146 @@
             "Discount",
             "Wallet"
           ],
-          "description": ""
+          "examples": [
+            "Offer"
+          ]
         },
         "item subtype": {
           "type": "string",
+          "description": "Subtype of item in the invoice.",
+          "$comment": "Arrival fee and departure fee subtypes are used for addition type records. Unlimited benefit, limited benefit, and voucher subtypes are used for discount type records.",
           "enum": [
-            "Manual",
             "Arrival Fee",
             "Departure Fee",
             "Credit",
             "Unlimited Benefit",
-            "Limited Benefit"
+            "Limited Benefit",
+            "Manual"
           ],
-          "description": ""
+          "examples": [
+            "Arrival Fee"
+          ]
         },
         "item offer type": {
           "type": "string",
+          "description": "Offer type of item in the invoice.",
+          "$comment": "Present when item type is offer.",
           "enum": [
             "Offer",
             "Room Upgrade",
             "Pet Perk",
             "Package"
           ],
-          "description": ""
+          "examples": [
+            "Offer"
+          ]
         },
         "item summary": {
           "type": "string",
-          "description": ""
+          "description": "Detailed reference of the item type.",
+          "examples": [
+            "Standard room"
+          ]
         },
         "item description": {
           "type": "string",
-          "description": ""
+          "description": "Location provided description, or detailed reference of the item type.",
+          "examples": [
+            "60 mins late departure fee"
+          ]
         },
         "item pricing strategy": {
           "type": "string",
+          "description": "Pricing strategy of the item.",
+          "$comment": "Used in boarding, when daily and offer type is offer or room upgrade, then the item will be priced on the departure date.",
           "enum": [
             "Daily",
             "Nightly"
           ],
-          "description": ""
+          "examples": [
+            "68.86"
+          ]
         },
         "item quantity": {
           "type": "number",
-          "description": ""
+          "description": "Quantity of the item.",
+          "$comment": "Offer and room upgrade are represented as 1, otherwise the quantity of the item purchased.",
+          "examples": [
+            "1"
+          ]
         },
         "item rate": {
           "type": "number",
-          "description": ""
+          "description": "Rate of the item.",
+          "examples": [
+            "100"
+          ]
         },
         "item original rate": {
           "type": "number",
-          "description": ""
+          "description": "Original rate of the item.",
+          "examples": [
+            "125"
+          ]
         },
         "item price": {
           "type": "number",
-          "description": ""
+          "description": "Price of the item.",
+          "examples": [
+            "100"
+          ]
         },
         "item pre discount subtotal": {
           "type": "number",
-          "description": ""
+          "description": "Pre discount subtotal of the item.",
+          "examples": [
+            "125"
+          ]
         },
         "item total discount": {
           "type": "number",
-          "description": ""
+          "description": "Total discount of the item.",
+          "examples": [
+            "25"
+          ]
         },
         "item subtotal": {
           "type": "number",
-          "description": ""
+          "description": "Subtotal of the item.",
+          "examples": [
+            "100"
+          ]
         },
         "item tax amount": {
           "type": "number",
-          "description": ""
+          "description": "Tax amount of the item",
+          "examples": [
+            "10"
+          ]
         },
         "item total": {
           "type": "number",
-          "description": ""
+          "description": "Total of the item",
+          "examples": [
+            "110"
+          ]
         },
         "item tax percent": {
           "type": "number",
-          "description": ""
+          "description": "Tax percent of the item.",
+          "examples": [
+            ".065"
+          ]
         },
         "item discount percent": {
           "type": "number",
-          "description": ""
+          "description": "Discount percent of the item.",
+          "examples": [
+            ".5"
+          ]
         }
       },
-      "description": "Description for invoice-item-changes definition."
+      "description": "Auto-generated from CSV documentation."
     },
     "invoice-item-pet-changes": {
       "type": "object",
@@ -555,69 +843,99 @@
         "batch": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Date of the data included in this batch.",
+          "$comment": "Batches are processed after the day ends at midnight, in the location\u2019s local timezone. The first processed batch includes all historical data.",
+          "examples": [
+            "2025-01-01"
+          ]
         },
         "location": {
           "type": "string",
-          "description": ""
+          "description": "Location identifier.",
+          "$comment": "A human-readable, unique id for the location, using kebab case . This value is used externally, such as on booking websites. In rare cases it may change if there is business re-branding.",
+          "examples": [
+            "paws-pet-hotel-lincoln-park"
+          ]
         },
         "location id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Location identifier (system).",
+          "examples": [
+            "cmgs508fd000904l4e5a2g73i"
+          ]
         },
         "location timezone": {
           "type": "string",
           "format": "IANA timezone",
-          "description": ""
+          "description": "Local timezone of the location.",
+          "$comment": "Location's local timezone which can be used to convert UTC date-time properties.",
+          "examples": [
+            "America/Chicago",
+            "America/New_York"
+          ]
         },
         "account id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Account identifier (system).",
+          "$comment": "An account is the hierarchical parent of a location. In rare cases, the location-to-account relationship may change, such as when business ownership transfers.",
+          "examples": [
+            "cmgs53rww000a04l4escye9nc"
+          ]
         },
         "invoice item pet created at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the item-pet association was created.",
+          "examples": [
+            "2025-08-26 17:29:08.711"
+          ]
         },
         "invoice item pet updated at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the item-pet association was updated.",
+          "examples": [
+            "2025-09-16 5:19:34.923"
+          ]
         },
         "invoice item pet status": {
           "type": "string",
+          "description": "Status of the item-pet association.",
           "enum": [
-            "Inactive",
-            "Deleted",
-            "Active"
+            "Active",
+            "Deleted. Inactive"
           ],
-          "description": ""
+          "examples": [
+            "Active"
+          ]
         },
         "booking id": {
-          "$ref": "#/definitions/invoice-changes/properties/booking id",
-          "description": ""
+          "$ref": "invoice-changes.booking id"
         },
         "invoice reference": {
-          "type": "string",
-          "description": ""
+          "$ref": "invoice-changes.invoice reference"
         },
         "invoice id": {
-          "$ref": "#/definitions/invoice-changes/properties/invoice id",
-          "description": ""
+          "$ref": "invoice-changes.invoice id"
         },
         "invoice item id": {
-          "type": "string",
-          "format": "cuid",
-          "description": ""
+          "$ref": "invoice-item-changes.item id",
+          "$comment": "Invoice item side of the item-pet association representing which invoice item is booked for a pet.",
+          "examples": [
+            "cmgse6jwcu4n193kgspzpghb"
+          ]
         },
         "pet id": {
-          "$ref": "#/definitions/pet-changes/properties/pet id",
-          "description": ""
+          "$ref": "pet-changes.pet id",
+          "$comment": "Pet side of the item-pet association representing which pet booked an invoice item.",
+          "examples": [
+            "cmgsfo3ed000004l16d368fzt"
+          ]
         }
       },
-      "description": "Description for invoice-item-pet-changes definition."
+      "description": "Auto-generated from CSV documentation."
     },
     "pet-changes": {
       "type": "object",
@@ -625,157 +943,249 @@
         "batch": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Date of the data included in this batch.",
+          "$comment": "Batches are processed after the day ends at midnight, in the location\u2019s local timezone. The first processed batch includes all historical data.",
+          "examples": [
+            "2025-01-01"
+          ]
         },
         "location": {
           "type": "string",
-          "description": ""
+          "description": "Location identifier.",
+          "$comment": "A human-readable, unique id for the location, using kebab case . This value is used externally, such as on booking websites. In rare cases it may change if there is business re-branding.",
+          "examples": [
+            "paws-pet-hotel-lincoln-park"
+          ]
         },
         "location id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Location identifier (system).",
+          "examples": [
+            "cmgs508fd000904l4e5a2g73i"
+          ]
         },
         "location timezone": {
           "type": "string",
           "format": "IANA timezone",
-          "description": ""
+          "description": "Local timezone of the location.",
+          "$comment": "Location's local timezone which can be used to convert UTC date-time properties.",
+          "examples": [
+            "America/Chicago",
+            "America/New_York"
+          ]
         },
         "account id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Account identifier (system).",
+          "$comment": "An account is the hierarchical parent of a location. In rare cases, the location-to-account relationship may change, such as when business ownership transfers.",
+          "examples": [
+            "cmgs53rww000a04l4escye9nc"
+          ]
         },
         "pet created location id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Location identifier (system) that created the pet.",
+          "$comment": "The location that created the pet may be different from pet's location id when using shared-crm.",
+          "examples": [
+            "cmgst1zh29uweqzlkexgi42f"
+          ]
         },
         "pet id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Pet identifier (system).",
+          "examples": [
+            "cmgsfo3ed000004l16d368fzt"
+          ]
         },
         "pet created at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the pet was created.",
+          "examples": [
+            "2025-08-26 17:29:08.711"
+          ]
         },
         "pet updated at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the pet was updated.",
+          "examples": [
+            "2025-09-16 5:19:34.234"
+          ]
         },
         "pet status": {
           "type": "string",
+          "description": "Active status of the pet.",
+          "$comment": "A deceased pet will be inactive.",
           "enum": [
             "Inactive",
             "Deleted",
             "Active"
           ],
-          "description": ""
+          "examples": [
+            "Active"
+          ]
         },
         "pet name": {
           "type": "string",
-          "description": ""
+          "description": "Name of the pet.",
+          "examples": [
+            "Teddy"
+          ]
         },
         "pet weight": {
           "type": "number",
-          "description": ""
+          "description": "Numeric weight of the pet in pounds.",
+          "examples": [
+            "70"
+          ]
         },
         "pet color": {
           "type": "string",
-          "description": ""
+          "description": "Description of the pet's color or appearance.",
+          "examples": [
+            "Brown"
+          ]
         },
         "pet sex": {
           "type": "string",
+          "description": "Sex of the pet.",
           "enum": [
             "Male",
             "Female"
           ],
-          "description": ""
+          "examples": [
+            "Male"
+          ]
         },
         "pet altered": {
           "type": "string",
+          "description": "Altered status of the pet.",
           "enum": [
             "Altered",
             "Not Altered"
           ],
-          "description": ""
+          "examples": [
+            "Altered"
+          ]
         },
         "pet alert": {
           "type": "string",
-          "description": ""
+          "description": "Location generated content used to further describe the pet.",
+          "examples": [
+            "Dog is a jumper."
+          ]
         },
         "pet temper test results": {
           "type": "string",
+          "description": "Results of the pet's behavioral evaluation.",
           "enum": [
             "Passed",
             "Failed",
             "Scheduled"
           ],
-          "description": ""
+          "examples": [
+            "Passed"
+          ]
         },
         "pet temper test date": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Scheduled or completion date of the pet's behavioral evaluation.",
+          "examples": [
+            "2025-08-26"
+          ]
         },
         "pet temper test notes": {
           "type": "string",
-          "description": ""
+          "description": "Location generated description of the pet's behavioral evaluation.",
+          "examples": [
+            "Teddy gets long well with other dogs, takes a while to warm up to new humans."
+          ]
         },
         "pet date of birth": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Birth date of the pet.",
+          "examples": [
+            "2025-08-26"
+          ]
         },
         "pet date of death": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Date of death of the pet.",
+          "examples": [
+            "2025-08-26"
+          ]
         },
         "pet death recorded date": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Date of recording for the pet's death.",
+          "examples": [
+            "2025-08-26"
+          ]
         },
         "pet death notes": {
           "type": "string",
-          "description": ""
+          "description": "Location generated description of the pet's death."
         },
         "pet vet name": {
           "type": "string",
-          "description": ""
+          "description": "The name of the pet's veterinarian.",
+          "examples": [
+            "Paws Pet Hotel"
+          ]
         },
         "pet vet phone": {
           "type": "string",
-          "description": ""
+          "description": "The phone number of the pet's veterinarian.",
+          "examples": [
+            "13125550173"
+          ]
         },
         "pet owner id": {
-          "$ref": "#/definitions/pet-owner-changes/properties/pet owner id",
-          "description": ""
+          "$ref": "pet-owner-changes.pet owner id"
         },
         "pet species": {
           "type": "string",
-          "description": ""
+          "description": "Species name of the pet.",
+          "$comment": "Location configurable name for of one of Goose's supported species.",
+          "examples": [
+            "Dog"
+          ]
         },
         "pet species id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Pet species identifier (system).",
+          "examples": [
+            "cmgs4layysqeaqjoiki0ed0t"
+          ]
         },
         "pet breed": {
           "type": "string",
-          "description": ""
+          "description": "Breed name of the pet.",
+          "$comment": "Location's selection of a platform controlled list of breeds.",
+          "examples": [
+            "Chocolate Labrador"
+          ]
         },
         "pet breed id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Pet breed identifier (system).",
+          "examples": [
+            "cmgs95yuxtpga96rhe0mmq0q"
+          ]
         }
       },
-      "description": "Description for pet-changes definition."
+      "description": "Auto-generated from CSV documentation."
     },
     "pet-owner-changes": {
       "type": "object",
@@ -783,82 +1193,136 @@
         "batch": {
           "type": "string",
           "format": "date",
-          "description": ""
+          "description": "Date of the data included in this batch.",
+          "$comment": "Batches are processed after the day ends at midnight, in the location\u2019s local timezone. The first processed batch includes all historical data.",
+          "examples": [
+            "2025-01-01"
+          ]
         },
         "location": {
           "type": "string",
-          "description": ""
+          "description": "Location identifier.",
+          "$comment": "A human-readable, unique id for the location, using kebab case . This value is used externally, such as on booking websites. In rare cases it may change if there is business re-branding.",
+          "examples": [
+            "paws-pet-hotel-lincoln-park"
+          ]
         },
         "location id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Location identifier (system).",
+          "examples": [
+            "cmgs508fd000904l4e5a2g73i"
+          ]
         },
         "location timezone": {
           "type": "string",
           "format": "IANA timezone",
-          "description": ""
+          "description": "Local timezone of the location.",
+          "$comment": "Location's local timezone which can be used to convert UTC date-time properties.",
+          "examples": [
+            "America/Chicago",
+            "America/New_York"
+          ]
         },
         "account id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Account identifier (system).",
+          "$comment": "An account is the hierarchical parent of a location. In rare cases, the location-to-account relationship may change, such as when business ownership transfers.",
+          "examples": [
+            "cmgs53rww000a04l4escye9nc"
+          ]
         },
         "pet owner created location id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Location identifier (system) that created the pet owner.",
+          "$comment": "The location that created the pet owner may be different from pet owner's location id when using shared-crm.",
+          "examples": [
+            "cmgs1mz5ax7b0mh78tg17odq"
+          ]
         },
         "pet owner id": {
           "type": "string",
           "format": "cuid",
-          "description": ""
+          "description": "Pet owner identifier (system).",
+          "examples": [
+            "cmgsfoc6b000104l1d88n8xpi"
+          ]
         },
         "pet owner created at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the pet owner was created.",
+          "examples": [
+            "2025-08-26 17:29:08.711"
+          ]
         },
         "pet owner updated at": {
           "type": "string",
           "format": "date-time",
-          "description": ""
+          "description": "Timestamp of when the pet owner was updated.",
+          "examples": [
+            "2025-09-16 5:19:34"
+          ]
         },
         "pet owner status": {
           "type": "string",
+          "description": "Active status of the pet owner.",
           "enum": [
-            "Inactive",
+            "Active",
             "Deleted",
-            "Active"
+            "Inactive"
           ],
-          "description": ""
+          "examples": [
+            "Active"
+          ]
         },
         "pet owner email": {
           "type": "string",
-          "description": ""
+          "description": "Email of the pet owner.",
+          "examples": [
+            "example@goose.pet"
+          ]
         },
         "pet owner phone": {
           "type": "string",
-          "description": ""
+          "description": "Phone number of the pet owner.",
+          "examples": [
+            "3125550173"
+          ]
         },
         "pet owner first name": {
           "type": "string",
-          "description": ""
+          "description": "First name of the pet owner.",
+          "examples": [
+            "Jane"
+          ]
         },
         "pet owner last name": {
           "type": "string",
-          "description": ""
+          "description": "Last name of the pet owner.",
+          "examples": [
+            "Doe"
+          ]
         },
         "pet owner address": {
           "type": "string",
-          "description": ""
+          "description": "Address of the pet owner.",
+          "examples": [
+            "2134 N Clark St, Chicago, IL 60614"
+          ]
         },
         "pet owner alert": {
           "type": "string",
-          "description": ""
+          "description": "Location generated content used to further describe the pet owner.",
+          "examples": [
+            "Typically arrives late for departure."
+          ]
         }
       },
-      "description": "Description for pet-owner-changes definition."
+      "description": "Auto-generated from CSV documentation."
     }
   }
 }
