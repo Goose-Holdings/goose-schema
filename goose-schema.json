@@ -275,7 +275,7 @@
           "$ref": "pet-owner-changes.pet owner id"
         }
       },
-      "description": "Auto-generated from CSV documentation."
+      "description": "Records all payment- and transaction-related changes associated with invoices and bookings."
     },
     "invoice-changes": {
       "type": "object",
@@ -587,7 +587,7 @@
           "$ref": "pet-owner-changes.pet owner id"
         }
       },
-      "description": "Auto-generated from CSV documentation."
+      "description": "Captures updates to invoices, bookings, and their statuses, including financial and scheduling details."
     },
     "invoice-item-changes": {
       "type": "object",
@@ -835,7 +835,7 @@
           ]
         }
       },
-      "description": "Auto-generated from CSV documentation."
+      "description": "Tracks individual invoice line item additions, modifications, or removals, including discounts and offers."
     },
     "invoice-item-pet-changes": {
       "type": "object",
@@ -936,7 +936,7 @@
           ]
         }
       },
-      "description": "Auto-generated from CSV documentation."
+      "description": "Represents associations between invoice items and pets, identifying which pet each line item applies to."
     },
     "pet-changes": {
       "type": "object",
@@ -1186,7 +1186,7 @@
           ]
         }
       },
-      "description": "Auto-generated from CSV documentation."
+      "description": "Reflects updates to pet profiles, including identifying details, temperament, species, and lifecycle events."
     },
     "pet-owner-changes": {
       "type": "object",
@@ -1323,7 +1323,7 @@
           ]
         }
       },
-      "description": "Auto-generated from CSV documentation."
+      "description": "Reflects modifications to pet records, including contact information, status, and ownership relationships."
     }
   }
 }
