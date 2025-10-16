@@ -905,7 +905,8 @@
           "description": "Status of the item-pet association.",
           "enum": [
             "Active",
-            "Deleted. Inactive"
+            "Deleted",
+            "Inactive"
           ],
           "examples": [
             "Active"
