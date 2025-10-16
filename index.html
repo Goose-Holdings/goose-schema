@@ -191,30 +191,25 @@
   <div id="content"></div>
 
   <script>
+    function openAndScrollTo(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.open = true;
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.classList.add('highlight');
+        setTimeout(() => el.classList.remove('highlight'), 1500);
+      }
+    }
+
     async function loadSchema() {
       const res = await fetch('goose-schema.json');
       const { definitions } = await res.json();
       const toc = document.getElementById('toc-list');
       const content = document.getElementById('content');
 
-      const openAndScrollTo = (id) => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.open = true;
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          el.classList.add('highlight');
-          setTimeout(() => el.classList.remove('highlight'), 1500);
-        }
-      };
-
       toc.innerHTML = Object.keys(definitions).sort().map(d =>
         `<a href="#" data-target="${d}">${d}</a>`
       ).join('');
-
-      const renderRef = (ref) => {
-        const target = ref.match(/#\/definitions\/([^\/]+)/)?.[1] || ref.split('.')[0];
-        return `<a href="#" onclick="event.preventDefault(); openAndScrollTo('${target}')">${ref}</a>`;
-      };
 
       const renderTable = (props) => {
         const cols = ['Property', 'Type', 'Format', 'Enum', 'Reference', 'Description', 'Comment', 'Examples'];
@@ -224,16 +219,12 @@
             <td>${p.type || ''}</td>
             <td>${p.format || ''}</td>
             <td>${(p.enum || []).map(e => `<span class="enum">${e}</span>`).join('')}</td>
-            <td>${p.$ref ? renderRef(p.$ref) : ''}</td>
+            <td>${p.$ref ? `<a href="#" class="ref-link" data-ref="${p.$ref}">${p.$ref}</a>` : ''}</td>
             <td>${p.description || ''}</td>
             <td>${p.$comment || ''}</td>
             <td>${(p.examples || []).map(e => `<code>${e}</code>`).join('<br>')}</td>
           </tr>`).join('');
-
-        return `<table>
-          <thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead>
-          <tbody>${rows}</tbody>
-        </table>`;
+        return `<table><thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`;
       };
 
       content.innerHTML = Object.entries(definitions).sort().map(([name, def]) => `
@@ -250,6 +241,15 @@
           document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
           link.classList.add('active');
           openAndScrollTo(id);
+        });
+      });
+
+      document.querySelectorAll('.ref-link').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const ref = link.getAttribute('data-ref');
+          const target = ref.match(/#\/definitions\/([^\/]+)/)?.[1] || ref.split('.')[0];
+          openAndScrollTo(target);
         });
       });
     }
