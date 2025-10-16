@@ -24,6 +24,7 @@
     a {
       color: #FE5816;
       text-decoration: none;
+      cursor: pointer;
     }
     a:hover {
       text-decoration: underline;
@@ -130,19 +131,22 @@
         }
       }
 
-      // Build TOC (alphabetical)
+      // Build TOC alphabetically
       const defNames = Object.keys(defs).sort();
       for (const defName of defNames) {
         const li = document.createElement('li');
         const link = document.createElement('a');
-        link.href = 'javascript:void(0)';
         link.textContent = defName;
-        link.addEventListener('click', () => openAndScrollTo(defName));
+        link.href = '#';
+        link.onclick = (e) => {
+          e.preventDefault();
+          openAndScrollTo(defName);
+        };
         li.appendChild(link);
         toc.appendChild(li);
       }
 
-      // Build content
+      // Create schema tables
       for (const defName of defNames) {
         const def = defs[defName];
         const details = document.createElement('details');
@@ -171,27 +175,22 @@
           const prop = props[propName];
           const tr = document.createElement('tr');
 
-          // Property
           const tdProp = document.createElement('td');
           tdProp.textContent = propName;
           tr.appendChild(tdProp);
 
-          // Type
           const tdType = document.createElement('td');
           tdType.textContent = prop.type || '';
           tr.appendChild(tdType);
 
-          // Format
           const tdFormat = document.createElement('td');
           tdFormat.textContent = prop.format || '';
           tr.appendChild(tdFormat);
 
-          // Enum
           const tdEnum = document.createElement('td');
           tdEnum.innerHTML = (prop.enum || []).map(e => `• ${e}`).join('<br>');
           tr.appendChild(tdEnum);
 
-          // Reference — restored working behavior
           const tdRef = document.createElement('td');
           if (prop["$ref"]) {
             const ref = prop["$ref"];
@@ -200,12 +199,13 @@
             if (targetDef) {
               const refDisplay = targetDef + ' → ' + propName;
               const a = document.createElement('a');
-              a.href = 'javascript:void(0)';
+              a.href = '#'; // makes it a true hyperlink
               a.textContent = refDisplay;
-              a.addEventListener('click', (e) => {
+              a.onclick = (e) => {
+                e.preventDefault();
                 e.stopPropagation();
                 setTimeout(() => openAndScrollTo(targetDef), 50);
-              });
+              };
               tdRef.appendChild(a);
             } else {
               tdRef.textContent = ref;
@@ -213,17 +213,14 @@
           }
           tr.appendChild(tdRef);
 
-          // Description
           const tdDesc = document.createElement('td');
           tdDesc.textContent = prop.description || '';
           tr.appendChild(tdDesc);
 
-          // Comment
           const tdComment = document.createElement('td');
           tdComment.textContent = prop["$comment"] || '';
           tr.appendChild(tdComment);
 
-          // Examples
           const tdExamples = document.createElement('td');
           tdExamples.innerHTML = (prop.examples || []).map(e => `• ${e}`).join('<br>');
           tr.appendChild(tdExamples);
