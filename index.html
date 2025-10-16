@@ -7,36 +7,31 @@
   <style>
     :root {
       --orange: #F46811;
-      --orange-dark: #BF5700;
       --ochre: #D18F36;
-      --yellow: #FDA03C;
       --blue-deep: #093C4D;
       --grey: #CBCBCB;
       --eggplant: #302B32;
       --text: #E2E2E2;
-      --panel: rgba(28, 30, 33, 0.85);
+      --panel: rgba(28,30,33,0.85);
+      --font-small: 0.9em;
+      --radius: 4px;
+      --pad: 0.8em;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: var(--eggplant);
-      background-image: radial-gradient(circle at 20% 25%, var(--eggplant) 0%, var(--blue-deep) 100%);
-      background-attachment: fixed;
-      background-size: cover;
-      background-repeat: no-repeat;
+      background: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep));
       color: var(--text);
       margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      min-height: 100vh;
       display: flex;
-      font-size: 0.9em;
+      min-height: 100vh;
+      font-size: var(--font-small);
+      line-height: 1.6;
     }
 
     .toc {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 240px;
       height: 100vh;
       background: var(--panel);
@@ -50,171 +45,100 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.6em;
+      gap: .6em;
       font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-      font-size: 1em;
-      text-transform: uppercase;
       color: var(--orange);
-      letter-spacing: 0.06em;
+      font-weight: 600;
+      text-transform: uppercase;
       margin-bottom: 1.5em;
-      text-shadow: 0 0 4px rgba(244,104,17,0.3);
     }
 
     .brand-logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 6px;
-      filter: drop-shadow(0 0 4px rgba(244,104,17,0.3));
-    }
-
-    .toc h2 {
-      color: var(--ochre);
-      font-size: 0.85em;
-      margin-bottom: 0.6em;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-    }
-
-    .toc ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .toc li {
-      margin: 0.4em 0;
+      width: 34px; height: 34px;
     }
 
     .toc a {
       color: var(--grey);
-      font-size: 0.8em;
-      font-weight: 500;
       opacity: 0.8;
-      transition: color 0.25s ease, opacity 0.25s ease;
+      display: block;
+      margin: .4em 0;
+      text-decoration: none;
+      transition: color .25s, opacity .25s;
     }
-
-    .toc a:hover {
-      opacity: 1;
-      color: var(--orange);
-    }
+    .toc a:hover { color: var(--orange); opacity: 1; }
 
     #content {
-      flex: 1;
       margin-left: 260px;
-      padding: 2em 3em 3em 3em;
+      padding: 2em 3em;
       max-width: 1800px;
+      flex: 1;
     }
 
     details {
-      background: rgba(40, 43, 47, 0.9);
+      background: rgba(40,43,47,0.9);
       border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 4px;
-      padding: 1em 1.2em;
-      margin: 1.2em 0;
-      backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+      padding: var(--pad);
+      margin: 1em 0;
       box-shadow: 0 0 8px rgba(0,0,0,0.4);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      font-size: 0.9em;
+      transition: border-color .3s, box-shadow .3s;
     }
 
-    details[open] {
-      border-color: var(--orange);
-      box-shadow: 0 0 15px rgba(244,104,17,0.15);
-    }
+    details[open] { border-color: var(--orange); box-shadow: 0 0 15px rgba(244,104,17,0.15); }
 
     summary {
       cursor: pointer;
-      font-weight: 600;
-      font-size: 0.95em;
-      color: var(--orange);
       font-family: 'JetBrains Mono', monospace;
-      outline: none;
-      list-style: none;
-      display: block;
+      font-weight: 600;
+      color: var(--orange);
+      display: flex;
+      flex-direction: column;
+      gap: .3em;
     }
 
-    .summary-inline-desc {
-      color: var(--grey);
-      font-size: 0.72em;
-      font-weight: 400;
-      margin-top: 0.25em;
-      opacity: 0.8;
-      line-height: 1.4;
-    }
+    .summary-desc { color: var(--grey); font-size: .8em; opacity: .8; }
 
     table {
       width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
+      border-collapse: collapse;
       margin-top: 1em;
+      border-radius: var(--radius);
       overflow: hidden;
-      border-radius: 3px;
       box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     th, td {
-      padding: 0.7em 0.9em;
+      padding: .6em .8em;
       text-align: left;
-      font-size: 0.85em;
-      vertical-align: top;
+      font-size: .85em;
     }
 
     th {
       background: rgba(244,104,17,0.08);
       color: var(--ochre);
-      font-weight: 600;
       text-transform: uppercase;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      letter-spacing: 0.03em;
     }
 
-    td {
-      background: rgba(45,47,50,0.85);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      color: var(--grey);
+    tr:nth-child(even) td { background: rgba(38,40,43,0.9); }
+
+    td a {
+      color: var(--orange);
+      text-decoration: none;
     }
 
-    tr:nth-child(even) td {
-      background: rgba(38,40,43,0.9);
+    td a:hover {
+      color: var(--ochre);
+      text-shadow: 0 0 4px rgba(244,104,17,0.3);
     }
 
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    .highlight {
-      border: 1px solid var(--orange);
-      box-shadow: 0 0 10px rgba(244,104,17,0.25);
-    }
-
-    td span.enum {
+    .enum {
       background: rgba(209,143,54,0.2);
-      color: var(--yellow);
+      color: var(--ochre);
       padding: 2px 6px;
       border-radius: 4px;
       margin: 2px;
       display: inline-block;
-      font-size: 0.8em;
       font-family: 'JetBrains Mono', monospace;
-    }
-
-    table a {
-      color: var(--orange);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease, text-shadow 0.3s ease;
-    }
-
-    table a:hover {
-      color: var(--yellow);
-      text-shadow: 0 0 4px rgba(244,104,17,0.3);
-    }
-
-    table a:visited {
-      color: var(--orange);
     }
   </style>
 </head>
@@ -224,21 +148,18 @@
       <img src="goose_future.png" alt="Goose Logo" class="brand-logo">
       <span>Goose Schema</span>
     </div>
-    <h2>Definitions</h2>
-    <ul id="toc"></ul>
+    <div id="toc-list"></div>
   </div>
-
   <div id="content"></div>
 
   <script>
     async function loadSchema() {
       const res = await fetch('goose-schema.json');
-      const schema = await res.json();
-      const defs = schema.definitions || {};
-      const toc = document.getElementById('toc');
+      const { definitions } = await res.json();
+      const toc = document.getElementById('toc-list');
       const content = document.getElementById('content');
 
-      function openAndScrollTo(id) {
+      const openAndScrollTo = (id) => {
         const el = document.getElementById(id);
         if (el) {
           el.open = true;
@@ -246,105 +167,43 @@
           el.classList.add('highlight');
           setTimeout(() => el.classList.remove('highlight'), 1500);
         }
-      }
+      };
 
-      const defNames = Object.keys(defs).sort();
-      for (const defName of defNames) {
-        const li = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = '#';
-        link.textContent = defName;
-        link.onclick = (e) => {
-          e.preventDefault();
-          openAndScrollTo(defName);
-        };
-        li.appendChild(link);
-        toc.appendChild(li);
-      }
+      toc.innerHTML = Object.keys(definitions).sort().map(d =>
+        `<a href="#" onclick="event.preventDefault(); openAndScrollTo('${d}')">${d}</a>`
+      ).join('');
 
-      for (const defName of defNames) {
-        const def = defs[defName];
-        const details = document.createElement('details');
-        details.id = defName;
+      const renderRef = (ref) => {
+        const target = ref.match(/#\/definitions\/([^\/]+)/)?.[1] || ref.split('.')[0];
+        return `<a href="#" onclick="event.preventDefault(); openAndScrollTo('${target}')">${ref}</a>`;
+      };
 
-        const summary = document.createElement('summary');
-        summary.innerHTML = `
-          <div>${defName}</div>
-          ${def.description ? `<div class="summary-inline-desc">${def.description}</div>` : ''}
-        `;
-        details.appendChild(summary);
+      const renderTable = (props) => {
+        const cols = ['Property', 'Type', 'Format', 'Enum', 'Reference', 'Description', 'Comment', 'Examples'];
+        const rows = Object.entries(props).map(([name, p]) => `
+          <tr>
+            <td>${name}</td>
+            <td>${p.type || ''}</td>
+            <td>${p.format || ''}</td>
+            <td>${(p.enum || []).map(e => `<span class="enum">${e}</span>`).join('')}</td>
+            <td>${p.$ref ? renderRef(p.$ref) : ''}</td>
+            <td>${p.description || ''}</td>
+            <td>${p.$comment || ''}</td>
+            <td>${(p.examples || []).map(e => `<code>${e}</code>`).join('<br>')}</td>
+          </tr>`).join('');
 
-        const table = document.createElement('table');
-        const headerRow = document.createElement('tr');
-        ['Property', 'Type', 'Format', 'Enum', 'Reference', 'Description', 'Comment', 'Examples'].forEach(h => {
-          const th = document.createElement('th');
-          th.textContent = h;
-          headerRow.appendChild(th);
-        });
-        table.appendChild(headerRow);
+        return `<table>
+          <thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+      };
 
-        const props = def.properties || {};
-        for (const propName in props) {
-          const prop = props[propName];
-          const tr = document.createElement('tr');
-
-          const tdProp = document.createElement('td');
-          tdProp.textContent = propName;
-          tr.appendChild(tdProp);
-
-          const tdType = document.createElement('td');
-          tdType.textContent = prop.type || '';
-          tr.appendChild(tdType);
-
-          const tdFormat = document.createElement('td');
-          tdFormat.textContent = prop.format || '';
-          tr.appendChild(tdFormat);
-
-          const tdEnum = document.createElement('td');
-          tdEnum.innerHTML = (prop.enum || []).map(e => `<span class="enum">${e}</span>`).join('');
-          tr.appendChild(tdEnum);
-
-          const tdRef = document.createElement('td');
-          if (prop["$ref"]) {
-            const ref = prop["$ref"];
-            let targetDef = null;
-            const defMatch = ref.match(/#\/definitions\/([^\/]+)/);
-            if (defMatch) targetDef = defMatch[1];
-            else {
-              const dotMatch = ref.match(/^([^.]+)/);
-              if (dotMatch) targetDef = dotMatch[1];
-            }
-
-            const a = document.createElement('a');
-            a.href = '#';
-            a.textContent = ref;
-            a.onclick = (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              if (targetDef) setTimeout(() => openAndScrollTo(targetDef), 50);
-            };
-            tdRef.appendChild(a);
-          }
-          tr.appendChild(tdRef);
-
-          const tdDesc = document.createElement('td');
-          tdDesc.textContent = prop.description || '';
-          tr.appendChild(tdDesc);
-
-          const tdComment = document.createElement('td');
-          tdComment.textContent = prop["$comment"] || '';
-          tr.appendChild(tdComment);
-
-          const tdExamples = document.createElement('td');
-          tdExamples.innerHTML = (prop.examples || []).map(e => `<code>${e}</code>`).join('<br>');
-          tr.appendChild(tdExamples);
-
-          table.appendChild(tr);
-        }
-
-        details.appendChild(table);
-        content.appendChild(details);
-      }
+      content.innerHTML = Object.entries(definitions).sort().map(([name, def]) => `
+        <details id="${name}">
+          <summary>${name}${def.description ? `<span class="summary-desc">${def.description}</span>` : ''}</summary>
+          ${renderTable(def.properties || {})}
+        </details>
+      `).join('');
     }
     loadSchema();
   </script>
