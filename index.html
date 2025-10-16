@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Goose Schema Documentation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --orange: #F46811;
@@ -19,7 +19,7 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Raleway', sans-serif;
       background: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep));
       color: var(--text);
       margin: 0;
@@ -90,13 +90,20 @@
       cursor: pointer;
       font-family: 'JetBrains Mono', monospace;
       font-weight: 600;
+      font-size: 0.95em;
       color: var(--orange);
       display: flex;
       flex-direction: column;
       gap: .3em;
     }
 
-    .summary-desc { color: var(--grey); font-size: .9em; opacity: .8; }
+    .summary-desc {
+      color: var(--grey);
+      font-family: 'Raleway', sans-serif;
+      font-size: .8em;
+      opacity: .8;
+      line-height: 1.4;
+    }
 
     table {
       width: 100%;
@@ -117,6 +124,7 @@
       background: rgba(244,104,17,0.08);
       color: var(--ochre);
       text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
     }
 
     tr:nth-child(even) td { background: rgba(38,40,43,0.9); }
@@ -124,6 +132,7 @@
     td a {
       color: var(--orange);
       text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
     }
 
     td a:hover {
@@ -139,6 +148,16 @@
       margin: 2px;
       display: inline-block;
       font-family: 'JetBrains Mono', monospace;
+    }
+
+    td code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+    }
+
+    td {
+      color: var(--grey);
+      font-family: 'Raleway', sans-serif;
     }
   </style>
 </head>
