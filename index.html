@@ -120,20 +120,17 @@
       const toc = document.getElementById('toc');
       const content = document.getElementById('content');
 
-      // Smooth scroll & highlight
       function openAndScrollTo(id) {
         const el = document.getElementById(id);
         if (el) {
           el.open = true;
-          setTimeout(() => {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            el.classList.add('highlight');
-            setTimeout(() => el.classList.remove('highlight'), 1500);
-          }, 100);
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          el.classList.add('highlight');
+          setTimeout(() => el.classList.remove('highlight'), 1500);
         }
       }
 
-      // Build TOC
+      // Build TOC (alphabetical)
       const defNames = Object.keys(defs).sort();
       for (const defName of defNames) {
         const li = document.createElement('li');
@@ -174,49 +171,59 @@
           const prop = props[propName];
           const tr = document.createElement('tr');
 
+          // Property
           const tdProp = document.createElement('td');
           tdProp.textContent = propName;
           tr.appendChild(tdProp);
 
+          // Type
           const tdType = document.createElement('td');
           tdType.textContent = prop.type || '';
           tr.appendChild(tdType);
 
+          // Format
           const tdFormat = document.createElement('td');
           tdFormat.textContent = prop.format || '';
           tr.appendChild(tdFormat);
 
+          // Enum
           const tdEnum = document.createElement('td');
           tdEnum.innerHTML = (prop.enum || []).map(e => `• ${e}`).join('<br>');
           tr.appendChild(tdEnum);
 
-          // Reference (fully working link)
+          // Reference — restored working behavior
           const tdRef = document.createElement('td');
           if (prop["$ref"]) {
             const ref = prop["$ref"];
             const match = ref.match(/#\/definitions\/([^\/]+)/);
             const targetDef = match ? match[1] : null;
-            const refDisplay = ref.replace('#/definitions/', '');
-            const a = document.createElement('a');
-            a.href = 'javascript:void(0)';
-            a.textContent = refDisplay;
-            a.title = targetDef ? 'Click to view ' + targetDef : 'Reference';
-            a.addEventListener('click', (e) => {
-              e.stopPropagation();
-              if (targetDef) openAndScrollTo(targetDef);
-            });
-            tdRef.appendChild(a);
+            if (targetDef) {
+              const refDisplay = targetDef + ' → ' + propName;
+              const a = document.createElement('a');
+              a.href = 'javascript:void(0)';
+              a.textContent = refDisplay;
+              a.addEventListener('click', (e) => {
+                e.stopPropagation();
+                setTimeout(() => openAndScrollTo(targetDef), 50);
+              });
+              tdRef.appendChild(a);
+            } else {
+              tdRef.textContent = ref;
+            }
           }
           tr.appendChild(tdRef);
 
+          // Description
           const tdDesc = document.createElement('td');
           tdDesc.textContent = prop.description || '';
           tr.appendChild(tdDesc);
 
+          // Comment
           const tdComment = document.createElement('td');
           tdComment.textContent = prop["$comment"] || '';
           tr.appendChild(tdComment);
 
+          // Examples
           const tdExamples = document.createElement('td');
           tdExamples.innerHTML = (prop.examples || []).map(e => `• ${e}`).join('<br>');
           tr.appendChild(tdExamples);
