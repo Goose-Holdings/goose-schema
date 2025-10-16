@@ -19,23 +19,29 @@
       --pad: 0.8em;
     }
 
-    html {
-      height: 100%;
-      background: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep)) fixed;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-    }
-
-    body {
+    html, body {
       margin: 0;
-      color: var(--text);
+      padding: 0;
+      height: 100%;
       font-family: 'Inter', sans-serif;
+      color: var(--text);
       font-size: var(--font-small);
       line-height: 1.6;
-      display: flex;
-      min-height: 100%;
       overflow-x: hidden;
+      background: none;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep));
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
     .toc {
@@ -125,6 +131,16 @@
       width: calc(100% - 260px);
       max-width: 1800px;
       box-sizing: border-box;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .schema-container {
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
     }
 
     details {
@@ -136,6 +152,7 @@
       box-shadow: 0 0 8px rgba(0,0,0,0.4);
       transition: border-color .3s, box-shadow .3s;
       width: 100%;
+      display: block;
     }
 
     details[open] {
@@ -217,7 +234,9 @@
     <div id="toc-list"></div>
   </div>
 
-  <div id="content"></div>
+  <div id="content">
+    <div class="schema-container" id="schema-container"></div>
+  </div>
 
   <script>
     function openAndScrollTo(id) {
@@ -234,7 +253,7 @@
       const res = await fetch('goose-schema.json');
       const { definitions } = await res.json();
       const toc = document.getElementById('toc-list');
-      const content = document.getElementById('content');
+      const container = document.getElementById('schema-container');
 
       toc.innerHTML = Object.keys(definitions).sort().map(d =>
         `<a href="#" data-target="${d}">${d}</a>`
@@ -256,7 +275,7 @@
         return `<table><thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`;
       };
 
-      content.innerHTML = Object.entries(definitions).sort().map(([name, def]) => `
+      container.innerHTML = Object.entries(definitions).sort().map(([name, def]) => `
         <details id="${name}">
           <summary>${name}${def.description ? `<span class="summary-desc">${def.description}</span>` : ''}</summary>
           ${renderTable(def.properties || {})}
