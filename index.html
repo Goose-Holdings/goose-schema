@@ -18,20 +18,24 @@
       --pad: 0.8em;
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep));
-      color: var(--text);
+    html, body {
+      height: 100%;
       margin: 0;
-      display: flex;
-      min-height: 100vh;
+      background: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep)) fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
       font-size: var(--font-small);
       line-height: 1.6;
+      display: flex;
     }
 
     .toc {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 240px;
       height: 100vh;
       background: var(--panel);
@@ -54,7 +58,8 @@
     }
 
     .brand-logo {
-      width: 34px; height: 34px;
+      width: 34px;
+      height: 34px;
     }
 
     .toc a {
@@ -116,7 +121,10 @@
       transition: border-color .3s, box-shadow .3s;
     }
 
-    details[open] { border-color: var(--orange); box-shadow: 0 0 15px rgba(244,104,17,0.15); }
+    details[open] {
+      border-color: var(--orange);
+      box-shadow: 0 0 15px rgba(244,104,17,0.15);
+    }
 
     summary {
       cursor: pointer;
@@ -157,7 +165,9 @@
       text-transform: uppercase;
     }
 
-    tr:nth-child(even) td { background: rgba(38,40,43,0.9); }
+    tr:nth-child(even) td {
+      background: rgba(38,40,43,0.9);
+    }
 
     td a {
       color: var(--orange);
@@ -188,6 +198,7 @@
     </div>
     <div id="toc-list"></div>
   </div>
+
   <div id="content"></div>
 
   <script>
@@ -253,6 +264,7 @@
         });
       });
     }
+
     loadSchema();
   </script>
 </body>
