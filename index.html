@@ -20,11 +20,16 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at 20% 25%, var(--eggplant) 0%, var(--blue-deep) 100%);
+      background-color: var(--eggplant);
+      background-image: radial-gradient(circle at 20% 25%, var(--eggplant) 0%, var(--blue-deep) 100%);
+      background-attachment: fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
       color: var(--text);
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
     .container {
@@ -182,6 +187,21 @@
       display: inline-block;
       font-size: 0.8em;
       font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Fix: ref hyperlinks use Goose palette */
+    table a {
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease, text-shadow 0.3s ease;
+    }
+    table a:hover {
+      color: var(--yellow);
+      text-shadow: 0 0 6px rgba(244,104,17,0.4);
+    }
+    table a:visited {
+      color: var(--orange);
     }
   </style>
 </head>
