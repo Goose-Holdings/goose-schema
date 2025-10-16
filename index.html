@@ -94,12 +94,14 @@
       font-size: 0.8em;
     }
     /* Column widths */
-    th:nth-child(1), td:nth-child(1) { width: 18%; } /* Property */
-    th:nth-child(2), td:nth-child(2) { width: 10%; } /* Type */
-    th:nth-child(3), td:nth-child(3) { width: 10%; } /* Format */
-    th:nth-child(4), td:nth-child(4) { width: 18%; } /* Enum */
-    th:nth-child(5), td:nth-child(5) { width: 26%; } /* Description */
-    th:nth-child(6), td:nth-child(6) { width: 18%; } /* Reference */
+    th:nth-child(1), td:nth-child(1) { width: 14%; } /* Property */
+    th:nth-child(2), td:nth-child(2) { width: 8%; }  /* Type */
+    th:nth-child(3), td:nth-child(3) { width: 8%; }  /* Format */
+    th:nth-child(4), td:nth-child(4) { width: 12%; } /* Enum */
+    th:nth-child(5), td:nth-child(5) { width: 20%; } /* Description */
+    th:nth-child(6), td:nth-child(6) { width: 14%; } /* Reference */
+    th:nth-child(7), td:nth-child(7) { width: 12%; } /* Comment */
+    th:nth-child(8), td:nth-child(8) { width: 12%; } /* Examples */
   </style>
 </head>
 <body>
@@ -150,7 +152,6 @@
         summary.textContent = defName;
         details.appendChild(summary);
 
-        // Description
         const desc = document.createElement('div');
         desc.className = 'definition-description';
         desc.textContent = def.description || '';
@@ -158,7 +159,7 @@
 
         const table = document.createElement('table');
         const headerRow = document.createElement('tr');
-        ['Property', 'Type', 'Format', 'Enum', 'Description', 'Reference'].forEach(h => {
+        ['Property', 'Type', 'Format', 'Enum', 'Description', 'Reference', 'Comment', 'Examples'].forEach(h => {
           const th = document.createElement('th');
           th.textContent = h;
           headerRow.appendChild(th);
@@ -196,18 +197,27 @@
             const match = ref.match(/#\/definitions\/(.+?)(?:\/|$)/);
             const targetDef = match ? match[1] : null;
             if (targetDef) {
-              const refDisplay = targetDef + ' → ' + propName;
               const a = document.createElement('a');
               a.href = 'javascript:void(0)';
-              a.textContent = refDisplay;
+              a.textContent = targetDef + ' → ' + propName;
               a.addEventListener('click', (e) => {
                 e.stopPropagation();
                 setTimeout(() => openAndScrollTo(targetDef), 50);
               });
               tdRef.appendChild(a);
+            } else {
+              tdRef.textContent = ref;
             }
           }
           tr.appendChild(tdRef);
+
+          const tdComment = document.createElement('td');
+          tdComment.textContent = prop["$comment"] || '';
+          tr.appendChild(tdComment);
+
+          const tdExamples = document.createElement('td');
+          tdExamples.innerHTML = (prop.examples || []).map(e => `• ${e}`).join('<br>');
+          tr.appendChild(tdExamples);
 
           table.appendChild(tr);
         }
