@@ -23,11 +23,11 @@
     }
     a {
       color: #FE5816;
-      text-decoration: none;
+      text-decoration: underline;
       cursor: pointer;
     }
     a:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
     .container {
       max-width: 1200px;
@@ -94,14 +94,6 @@
       margin: 0.5em 0 0.5em 0;
       font-size: 0.8em;
     }
-    th:nth-child(1), td:nth-child(1) { width: 14%; }
-    th:nth-child(2), td:nth-child(2) { width: 8%; }
-    th:nth-child(3), td:nth-child(3) { width: 8%; }
-    th:nth-child(4), td:nth-child(4) { width: 10%; }
-    th:nth-child(5), td:nth-child(5) { width: 14%; }
-    th:nth-child(6), td:nth-child(6) { width: 22%; }
-    th:nth-child(7), td:nth-child(7) { width: 12%; }
-    th:nth-child(8), td:nth-child(8) { width: 12%; }
   </style>
 </head>
 <body>
@@ -131,13 +123,12 @@
         }
       }
 
-      // Build TOC alphabetically
       const defNames = Object.keys(defs).sort();
       for (const defName of defNames) {
         const li = document.createElement('li');
         const link = document.createElement('a');
-        link.textContent = defName;
         link.href = '#';
+        link.textContent = defName;
         link.onclick = (e) => {
           e.preventDefault();
           openAndScrollTo(defName);
@@ -146,7 +137,6 @@
         toc.appendChild(li);
       }
 
-      // Create schema tables
       for (const defName of defNames) {
         const def = defs[defName];
         const details = document.createElement('details');
@@ -196,20 +186,15 @@
             const ref = prop["$ref"];
             const match = ref.match(/#\/definitions\/([^\/]+)/);
             const targetDef = match ? match[1] : null;
-            if (targetDef) {
-              const refDisplay = targetDef + ' → ' + propName;
-              const a = document.createElement('a');
-              a.href = '#'; // makes it a true hyperlink
-              a.textContent = refDisplay;
-              a.onclick = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setTimeout(() => openAndScrollTo(targetDef), 50);
-              };
-              tdRef.appendChild(a);
-            } else {
-              tdRef.textContent = ref;
-            }
+            const a = document.createElement('a');
+            a.href = '#';
+            a.textContent = ref;
+            a.onclick = (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (targetDef) setTimeout(() => openAndScrollTo(targetDef), 50);
+            };
+            tdRef.appendChild(a);
           }
           tr.appendChild(tdRef);
 
