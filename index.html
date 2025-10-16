@@ -58,14 +58,46 @@
     }
 
     .toc a {
+      position: relative;
       color: var(--grey);
       opacity: 0.8;
       display: block;
       margin: .4em 0;
       text-decoration: none;
-      transition: color .25s, opacity .25s;
+      transition: color .25s, opacity .25s, padding-left .25s;
+      padding-left: 0;
     }
-    .toc a:hover { color: var(--orange); opacity: 1; }
+
+    .toc a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 60%;
+      width: 2px;
+      background: var(--orange);
+      opacity: 0;
+      transition: opacity .25s, height .25s;
+    }
+
+    .toc a:hover {
+      color: var(--orange);
+      opacity: 1;
+      padding-left: 6px;
+      text-shadow: 0 0 6px rgba(244,104,17,0.3);
+    }
+
+    .toc a:hover::before {
+      opacity: 1;
+      height: 90%;
+    }
+
+    .toc a.active {
+      color: var(--orange);
+      opacity: 1;
+      text-shadow: 0 0 8px rgba(244,104,17,0.4);
+    }
 
     #content {
       margin-left: 260px;
@@ -96,7 +128,6 @@
       gap: .3em;
     }
 
-    /* updated */
     .summary-desc {
       color: var(--grey);
       font-family: 'Inter', sans-serif;
@@ -177,7 +208,7 @@
       };
 
       toc.innerHTML = Object.keys(definitions).sort().map(d =>
-        `<a href="#" onclick="event.preventDefault(); openAndScrollTo('${d}')">${d}</a>`
+        `<a href="#" data-target="${d}">${d}</a>`
       ).join('');
 
       const renderRef = (ref) => {
@@ -211,6 +242,16 @@
           ${renderTable(def.properties || {})}
         </details>
       `).join('');
+
+      document.querySelectorAll('.toc a').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const id = link.getAttribute('data-target');
+          document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+          link.classList.add('active');
+          openAndScrollTo(id);
+        });
+      });
     }
     loadSchema();
   </script>
