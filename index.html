@@ -11,9 +11,7 @@
       --ochre: #D18F36;
       --yellow: #FDA03C;
       --blue-deep: #093C4D;
-      --blue-mid: #1A6382;
       --grey: #CBCBCB;
-      --brown: #30281D;
       --eggplant: #302B32;
       --text: #E2E2E2;
     }
@@ -32,26 +30,30 @@
       min-height: 100vh;
     }
 
+    /* Layout */
     .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 2em;
       display: flex;
       gap: 2em;
+      align-items: flex-start;
+      padding: 2em 3em;
+      margin: 0;
+      max-width: none;
     }
 
-    /* Sidebar with brand */
+    /* Sidebar (fixed left) */
     .toc {
-      position: sticky;
+      position: fixed;
       top: 2em;
-      align-self: flex-start;
-      width: 260px;
+      left: 2em;
+      width: 240px;
       background: rgba(25, 28, 31, 0.7);
       border: 1px solid rgba(255,255,255,0.05);
       border-radius: 14px;
       padding: 1.2em 1.6em;
       box-shadow: 0 0 24px rgba(0,0,0,0.55);
       backdrop-filter: blur(14px);
+      height: calc(100vh - 4em);
+      overflow-y: auto;
     }
 
     .brand {
@@ -97,8 +99,11 @@
       text-shadow: 0 0 8px rgba(244,104,17,0.4);
     }
 
+    /* Main content area */
     #content {
       flex: 1;
+      margin-left: 300px; /* leaves room for sidebar */
+      max-width: 1800px;
     }
 
     details {
@@ -189,7 +194,7 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Fix: ref hyperlinks use Goose palette */
+    /* Styled ref hyperlinks */
     table a {
       color: var(--orange);
       text-decoration: none;
