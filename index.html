@@ -123,6 +123,7 @@
         }
       }
 
+      // Build TOC alphabetically
       const defNames = Object.keys(defs).sort();
       for (const defName of defNames) {
         const li = document.createElement('li');
@@ -137,6 +138,7 @@
         toc.appendChild(li);
       }
 
+      // Build each definition section
       for (const defName of defNames) {
         const def = defs[defName];
         const details = document.createElement('details');
@@ -181,11 +183,21 @@
           tdEnum.innerHTML = (prop.enum || []).map(e => `• ${e}`).join('<br>');
           tr.appendChild(tdEnum);
 
+          // --- FIXED REFERENCE HANDLING ---
           const tdRef = document.createElement('td');
           if (prop["$ref"]) {
             const ref = prop["$ref"];
-            const match = ref.match(/#\/definitions\/([^\/]+)/);
-            const targetDef = match ? match[1] : null;
+
+            // Support both "#/definitions/..." and "invoice-changes.booking reference"
+            let targetDef = null;
+            const defMatch = ref.match(/#\/definitions\/([^\/]+)/);
+            if (defMatch) {
+              targetDef = defMatch[1];
+            } else {
+              const dotMatch = ref.match(/^([^.]+)/); // everything before the first dot
+              if (dotMatch) targetDef = dotMatch[1];
+            }
+
             const a = document.createElement('a');
             a.href = '#';
             a.textContent = ref;
@@ -197,6 +209,7 @@
             tdRef.appendChild(a);
           }
           tr.appendChild(tdRef);
+          // --- END FIX ---
 
           const tdDesc = document.createElement('td');
           tdDesc.textContent = prop.description || '';
