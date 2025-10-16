@@ -31,8 +31,9 @@
       background-color: var(--eggplant);
       background-image: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep));
       background-repeat: no-repeat;
-      background-attachment: fixed;
       background-size: cover;
+      background-attachment: scroll;
+      min-height: 100%;
     }
 
     .toc {
@@ -100,6 +101,15 @@
     .toc a:hover::before {
       opacity: 1;
       height: 90%;
+    }
+
+    /* Remove persistent "selected" state */
+    .toc a:focus,
+    .toc a:active {
+      background: none !important;
+      color: var(--grey) !important;
+      outline: none !important;
+      box-shadow: none !important;
     }
 
     #content {
