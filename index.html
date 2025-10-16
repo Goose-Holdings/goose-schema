@@ -132,7 +132,8 @@
       }
 
       // Build TOC
-      for (const defName in defs) {
+      const defNames = Object.keys(defs).sort();
+      for (const defName of defNames) {
         const li = document.createElement('li');
         const link = document.createElement('a');
         link.href = 'javascript:void(0)';
@@ -143,7 +144,7 @@
       }
 
       // Create definition sections
-      for (const defName in defs) {
+      for (const defName of defNames) {
         const def = defs[defName];
         const details = document.createElement('details');
         details.id = defName;
@@ -194,12 +195,12 @@
           const tdRef = document.createElement('td');
           if (prop["$ref"]) {
             const ref = prop["$ref"];
-            const match = ref.match(/#\/definitions\/(.+?)(?:\/|$)/);
-            const targetDef = match ? match[1] : null;
-            if (targetDef) {
+            const match = ref.match(/#\/definitions\/([^\/]+)/);
+            if (match) {
+              const targetDef = match[1];
               const a = document.createElement('a');
               a.href = 'javascript:void(0)';
-              a.textContent = targetDef + ' → ' + propName;
+              a.textContent = ref;
               a.addEventListener('click', (e) => {
                 e.stopPropagation();
                 setTimeout(() => openAndScrollTo(targetDef), 50);
