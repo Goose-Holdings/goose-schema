@@ -134,14 +134,13 @@
       outline: none;
       list-style: none;
       display: block;
-      margin-bottom: 0.2em;
     }
 
     .summary-inline-desc {
       color: var(--grey);
       font-size: 0.8em;
       font-weight: 400;
-      margin: 0.4em 0 1em 0.2em;
+      margin-top: 0.3em;
       opacity: 0.8;
       line-height: 1.4;
     }
@@ -150,7 +149,7 @@
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
-      margin-top: 0.5em;
+      margin-top: 1em;
       overflow: hidden;
       border-radius: 3px;
       box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
@@ -202,7 +201,6 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Link styling inside tables */
     table a {
       color: var(--orange);
       text-decoration: none;
@@ -270,15 +268,11 @@
         details.id = defName;
 
         const summary = document.createElement('summary');
-        summary.innerHTML = `<span class="summary-title">${defName}</span>`;
+        summary.innerHTML = `
+          <div>${defName}</div>
+          ${def.description ? `<div class="summary-inline-desc">${def.description}</div>` : ''}
+        `;
         details.appendChild(summary);
-
-        if (def.description) {
-          const desc = document.createElement('div');
-          desc.className = 'summary-inline-desc';
-          desc.textContent = def.description;
-          details.appendChild(desc);
-        }
 
         const table = document.createElement('table');
         const headerRow = document.createElement('tr');
@@ -347,6 +341,7 @@
 
           table.appendChild(tr);
         }
+
         details.appendChild(table);
         content.appendChild(details);
       }
