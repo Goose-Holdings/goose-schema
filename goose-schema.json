@@ -275,7 +275,7 @@
           "$ref": "pet-owner-changes.pet owner id"
         }
       },
-      "description": "Records all payment- and transaction-related changes associated with invoices and bookings."
+      "description": "Describes payment and transaction activity related to invoices and bookings."
     },
     "invoice-changes": {
       "type": "object",
@@ -587,7 +587,7 @@
           "$ref": "pet-owner-changes.pet owner id"
         }
       },
-      "description": "Captures updates to invoices, bookings, and their statuses, including financial and scheduling details."
+      "description": "Describes updates to bookings and invoices, including their statuses, services, and financial amounts."
     },
     "invoice-item-changes": {
       "type": "object",
@@ -835,7 +835,7 @@
           ]
         }
       },
-      "description": "Tracks individual invoice line item additions, modifications, or removals, including discounts and offers."
+      "description": "Describes changes to invoice line items, including offers, additions, removals, and discounts."
     },
     "invoice-item-pet-changes": {
       "type": "object",
@@ -936,7 +936,7 @@
           ]
         }
       },
-      "description": "Represents associations between invoice items and pets, identifying which pet each line item applies to."
+      "description": "Describes which pets consume specific invoice items within invoices."
     },
     "pet-changes": {
       "type": "object",
@@ -1186,7 +1186,7 @@
           ]
         }
       },
-      "description": "Reflects updates to pet profiles, including identifying details, temperament, species, and lifecycle events."
+      "description": "Describes updates to pet profiles, including identifying details, attributes, and lifecycle information."
     },
     "pet-owner-changes": {
       "type": "object",
@@ -1323,7 +1323,7 @@
           ]
         }
       },
-      "description": "Reflects modifications to pet records, including contact information, status, and ownership relationships."
+      "description": "Describes updates to pet owner profiles, including contact information, status, and associated relationships."
     }
   }
 }
