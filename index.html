@@ -19,18 +19,23 @@
       --pad: 0.8em;
     }
 
-    html, body {
+    html {
       height: 100%;
-      margin: 0;
       background: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep)) fixed;
       background-repeat: no-repeat;
       background-size: cover;
       background-attachment: fixed;
+    }
+
+    body {
+      margin: 0;
       color: var(--text);
       font-family: 'Inter', sans-serif;
       font-size: var(--font-small);
       line-height: 1.6;
       display: flex;
+      min-height: 100%;
+      overflow-x: hidden;
     }
 
     .toc {
@@ -117,8 +122,9 @@
     #content {
       margin-left: 260px;
       padding: 2em 3em;
+      width: calc(100% - 260px);
       max-width: 1800px;
-      flex: 1;
+      box-sizing: border-box;
     }
 
     details {
@@ -129,6 +135,7 @@
       margin: 1em 0;
       box-shadow: 0 0 8px rgba(0,0,0,0.4);
       transition: border-color .3s, box-shadow .3s;
+      width: 100%;
     }
 
     details[open] {
@@ -144,6 +151,7 @@
       display: flex;
       flex-direction: column;
       gap: .3em;
+      width: 100%;
     }
 
     .summary-desc {
