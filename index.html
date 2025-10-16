@@ -20,35 +20,11 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at 30% 20%, var(--eggplant) 0%, var(--blue-deep) 100%);
+      background: radial-gradient(circle at 20% 25%, var(--eggplant) 0%, var(--blue-deep) 100%);
       color: var(--text);
       margin: 0;
       padding: 0;
       line-height: 1.6;
-    }
-
-    h1 {
-      background: linear-gradient(90deg, var(--orange-dark), var(--orange));
-      color: #fff;
-      margin: 0;
-      padding: 1.2em 0;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.8em;
-      letter-spacing: 0.4px;
-      text-shadow: 0 0 10px rgba(244,104,17,0.5);
-      box-shadow: 0 0 20px rgba(244,104,17,0.25);
-    }
-
-    a {
-      color: var(--orange);
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    a:hover {
-      color: var(--yellow);
-      text-shadow: 0 0 6px rgba(244,104,17,0.4);
     }
 
     .container {
@@ -59,34 +35,48 @@
       gap: 2em;
     }
 
+    /* Sidebar with brand */
     .toc {
       position: sticky;
       top: 2em;
       align-self: flex-start;
       width: 260px;
-      background: rgba(25, 30, 35, 0.65);
+      background: rgba(25, 28, 31, 0.7);
       border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 1em 1.4em;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      backdrop-filter: blur(12px);
+      border-radius: 14px;
+      padding: 1.2em 1.6em;
+      box-shadow: 0 0 24px rgba(0,0,0,0.55);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 1.05em;
+      text-transform: uppercase;
+      color: var(--orange);
+      letter-spacing: 0.08em;
+      margin-bottom: 1em;
+      text-shadow: 0 0 6px rgba(244,104,17,0.35);
     }
 
     .toc h2 {
-      color: var(--orange);
-      font-size: 1.05em;
-      margin-bottom: 0.5em;
-      letter-spacing: 0.05em;
+      color: var(--ochre);
+      font-size: 1em;
+      margin-bottom: 0.4em;
+      font-weight: 500;
+      letter-spacing: 0.03em;
     }
 
     .toc ul {
       list-style: none;
       padding: 0;
       margin: 0;
+      border-left: 1px solid rgba(255,255,255,0.06);
     }
 
     .toc li {
-      margin: 0.4em 0;
+      margin: 0.5em 0 0.5em 0.8em;
     }
 
     .toc a {
@@ -94,10 +84,12 @@
       font-size: 0.95em;
       font-weight: 500;
       opacity: 0.8;
+      transition: color 0.25s ease, opacity 0.25s ease;
     }
     .toc a:hover {
       opacity: 1;
       color: var(--orange);
+      text-shadow: 0 0 8px rgba(244,104,17,0.4);
     }
 
     #content {
@@ -105,7 +97,7 @@
     }
 
     details {
-      background: rgba(35, 38, 42, 0.75);
+      background: rgba(35, 38, 42, 0.8);
       border: 1px solid rgba(255,255,255,0.05);
       border-radius: 14px;
       padding: 1.2em 1.5em;
@@ -123,7 +115,7 @@
     summary {
       cursor: pointer;
       font-weight: 600;
-      font-size: 1.1em;
+      font-size: 1.05em;
       color: var(--orange);
       font-family: 'JetBrains Mono', monospace;
       outline: none;
@@ -194,14 +186,15 @@
   </style>
 </head>
 <body>
-  <h1>Goose Schema Documentation</h1>
   <div class="container">
     <div class="toc">
+      <div class="brand">Goose Schema</div>
       <h2>Definitions</h2>
       <ul id="toc"></ul>
     </div>
     <div id="content"></div>
   </div>
+
   <script>
     async function loadSchema() {
       const res = await fetch('goose-schema.json');
