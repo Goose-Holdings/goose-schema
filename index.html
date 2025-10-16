@@ -28,19 +28,10 @@
       font-size: var(--font-small);
       line-height: 1.6;
       overflow-x: hidden;
-      background: none;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep));
+      background-color: var(--eggplant);
+      background-image: radial-gradient(circle at 20% 25%, var(--eggplant), var(--blue-deep));
       background-repeat: no-repeat;
+      background-attachment: fixed;
       background-size: cover;
     }
 
@@ -109,20 +100,6 @@
     .toc a:hover::before {
       opacity: 1;
       height: 90%;
-    }
-
-    .toc a.active {
-      color: var(--ochre);
-      font-weight: 600;
-      background: rgba(244,104,17,0.08);
-      padding-left: 8px;
-      text-shadow: 0 0 6px rgba(209,143,54,0.3);
-    }
-
-    .toc a.active::before {
-      opacity: 1;
-      height: 100%;
-      background: var(--ochre);
     }
 
     #content {
@@ -286,8 +263,6 @@
         link.addEventListener('click', e => {
           e.preventDefault();
           const id = link.getAttribute('data-target');
-          document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
-          link.classList.add('active');
           openAndScrollTo(id);
         });
       });
